@@ -1,0 +1,19 @@
+{
+  "name": "thomster-voice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "command.js",
+  "dependencies": {
+    "glob-all": "^3.0.1",
+    "lodash": "^3.10.1",
+    "minimist": "^1.2.0",
+    "text2num": "0.0.1",
+    "yargs": "^3.25.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
