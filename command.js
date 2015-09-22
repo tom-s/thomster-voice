@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var glob = require('glob-all');
 var text2num = require('text2num');
+var FILES = '/home/pi/share/';
 
 // Retrieve arguments
 var args = require('yargs').argv;
@@ -34,12 +35,12 @@ function _playMovie(args) {
 
     // Change args to make them better
     var args = _formatArgs(args);
-    var pattern = args.join('*') + '*';
+    var pattern = FILES + '**/' + args.join('*') + '*';
     console.log("pattern", pattern);
 
     var files = glob.sync([
-        'files/**/' + pattern      //include all     files/
-    ]);
+        pattern      //include all     files/
+    ], {nocase:true});
 
     console.log("files", files);
 }
@@ -88,7 +89,7 @@ function _formatArgs(args) {
             previousArgIsInt = argIsInt;
             return arg;
         }));
-
+	*/
 
     }
 
