@@ -2,6 +2,25 @@ var _ = require('lodash');
 var glob = require('glob-all');
 var text2num = require('text2num');
 var FILES = '/home/pi/share/';
+var VIDEO_EXTENSIONS = [
+    '.3gp',
+    '.avi',
+    '.bdmv',
+    '.divx',
+    '.flv',
+    '.ifo',
+    '.m2ts',
+    '.m4v',
+    '.mkv',
+    '.mov',
+    '.mp4',
+    '.mpeg',
+    '.mpg',
+    '.mts',
+    '.ogm',
+    '.ogv',
+    '.wmv'
+];
 
 // Retrieve arguments
 var args = require('yargs').argv;
@@ -35,14 +54,25 @@ function _playMovie(args) {
 
     // Change args to make them better
     var args = _formatArgs(args);
-    var pattern = FILES + '**/' + args.join('*') + '*';
+    var videoExtension = '*' + VIDEO_EXTENSIONS.join('|')
+    var pattern = FILES + '**/' + args.join('*') + '*' + videoExtension;
     console.log("pattern", pattern);
 
     var files = glob.sync([
         pattern      //include all     files/
     ], {nocase:true});
 
+    if(files.length === 0) {
+        speak("Sorry, I can't find it");
+    } else {
+        _openFile(file[0]); // open the first result
+    }
+
     console.log("files", files);
+}
+
+function _openFile(file) {
+    
 }
 
 function _formatArgs(args) {
