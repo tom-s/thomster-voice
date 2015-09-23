@@ -1,6 +1,9 @@
 var _ = require('lodash');
 var glob = require('glob-all');
 var text2num = require('text2num');
+var request = require('request');
+
+// CONF
 var FILES = '/home/pi/share/';
 var VIDEO_EXTENSIONS = [
     '.3gp',
@@ -72,7 +75,14 @@ function _playMovie(args) {
 }
 
 function _openFile(file) {
-    
+    var url = 'http://192.168.0.1/jsonrpc?request={"jsonrpc":"2.0","id":"1","method":"Player.Open","params":{"item":{"file":"' + file + '"}}}'
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body) // Show response
+        } else {
+            console.log('an error occured', error, response);
+        }
+    })
 }
 
 function _formatArgs(args) {
