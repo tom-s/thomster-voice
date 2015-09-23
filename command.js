@@ -79,6 +79,19 @@ function _openFile(file) {
     request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body) // Show response
+            speak("Opening movie");
+        } else {
+            console.log('an error occured', error, response);
+            speak("Sorry, I can't open the movie");
+        }
+    })
+}
+
+function _playPause() {
+    var url = 'http://192.168.0.1/jsonrpc?request={"jsonrpc": "2.0", "method": "Player.PlayPause", "params": { "playerid": 0 }, "id": 1}';
+    request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body) // Show response
         } else {
             console.log('an error occured', error, response);
         }
