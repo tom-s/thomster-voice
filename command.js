@@ -3,6 +3,8 @@ var glob = require('glob-all');
 var text2num = require('text2num');
 var request = require('request');
 var natural = require('natural');
+var metaphone = natural.Metaphone;
+var soundEx = natural.SoundEx;
 
 // CONF
 var FILES = '/home/pi/share/';
@@ -76,8 +78,14 @@ function _playMovie(args) {
 
     switch(files.length) {
         case 0:
-            var file = _searchSimilarSoundingFile(args, VIDEO_EXTENSIONS);
-            speak("Starting "+ file);
+            // Try a last resort solution, finding a name by the way it sounds !
+            var file = _searchSimilarSoundingFile(args.join(' '), VIDEO_EXTENSIONS);
+            if(file) {
+                speak("Starting "+ file);
+                _openFile(file);
+            } else {
+                speak("Could not file movie");
+            }
             break;
         case 1:
             var file = files[0];
@@ -87,23 +95,47 @@ function _playMovie(args) {
         default:
             var fileStr = FILES + args.join(' ') + videoExtension;
             var file = _searchBestFile(files, fileStr);
-            speak("Starting "+ file);
-            _openFile(file);
+            if(file) {
+                speak("Starting "+ file);
+            } else {
+                speak("Could not file movie");
+                _openFile(file);
+            }
     }
 
     console.log("files", files);
 }
 
-function _searchSimilarSoundingFile(args) {
-    
+function _searchSimilarSoundingFile(search) {
+    var file = null;
+    var similarSoundingFiles = [];
+
+    // Retrieve list of all movies
+    var pattern = FILES + '**/*' + videoExtension;
+
+    var files = glob.sync([
+        pattern      //include all     files/
+    ], {nocase:true});
+
+    console.log("list of all video files", files);
+
+    // Select movies which sound like
+    _.forEach(files, function(file) {
+        var fileName = file.substring(url.lastIndexOf('/')+1);
+        if(metaphone.compare(file, search)) {
+            similarSoundingFiles.push(file);
+        }
+    });
+
+    return _searchBestFile(similarSoundingFiles, search);
 }
 
 
 function _searchBestFile(files, filesStr) {
     var bestScore = -1;
-    var bestFile = files[0];
+    var bestFile = null;
     _.forEach(files, function(file) {
-        var fileName = url.substring(url.lastIndexOf('/')+1);
+        var fileName = file.substring(file.lastIndexOf('/')+1);
         var score = natural.JaroWinklerDistance(fileName, filesStr);
         if(score > bestScore) {
             bestFile = file;
