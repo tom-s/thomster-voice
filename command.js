@@ -76,21 +76,26 @@ function _playMovie(args) {
 
     switch(files.length) {
         case 0:
-            speak("Sorry, I can't find it");
+            var file = _searchSimilarSoundingFile(args, VIDEO_EXTENSIONS);
+            speak("Starting "+ file);
             break;
         case 1:
             var file = files[0];
-            speak("Starting ". file);
+            speak("Starting "+ file);
             _openFile(file);
             break;
         default:
             var fileStr = FILES + args.join(' ') + videoExtension;
             var file = _searchBestFile(files, fileStr);
-            speak("Starting ". file);
+            speak("Starting "+ file);
             _openFile(file);
     }
 
     console.log("files", files);
+}
+
+function _searchSimilarSoundingFile(args) {
+    
 }
 
 
