@@ -2,6 +2,7 @@ var _ = require('lodash');
 var glob = require('glob-all');
 var text2num = require('text2num');
 var request = require('request');
+var natural = require('natural');
 
 // CONF
 var FILES = '/home/pi/share/';
@@ -43,12 +44,20 @@ if(_.isUndefined(command)) {
 
 // Call appropriate function for given command
 switch(command) {
-    case 'playMovie':
+    case 'watch':
         _playMovie(args._);
         break;
 
+    case 'pause':
+        _playPause();
+        break;
+
+    case 'play':
+        _playPause();
+        break;
+
     default :
-        speak("Sorry, I don't know how to do this");
+        speak("Sorry, I don't understand");
 }
 
 
@@ -65,13 +74,37 @@ function _playMovie(args) {
         pattern      //include all     files/
     ], {nocase:true});
 
-    if(files.length === 0) {
-        speak("Sorry, I can't find it");
-    } else {
-        _openFile(file[0]); // open the first result
+    switch(files.length) {
+        case 0:
+            speak("Sorry, I can't find it");
+            break;
+        case 1:
+            var file = files[0];
+            speak("Starting ". file);
+            _openFile(file);
+            break;
+        default:
+            var fileStr = FILES + args.join(' ') + videoExtension;
+            var file = _searchBestFile(files, fileStr);
+            speak("Starting ". file);
+            _openFile(file);
     }
 
     console.log("files", files);
+}
+
+
+function _searchBestFile(files, filesStr) {
+    var bestScore = -1;
+    var bestFile = files[0];
+    _.forEach(files, function(file) {
+        var fileName = url.substring(url.lastIndexOf('/')+1);
+        var score = natural.JaroWinklerDistance(fileName, filesStr);
+        if(score > bestScore) {
+            bestFile = file;
+        }
+    });
+    return bestFile;
 }
 
 function _openFile(file) {
