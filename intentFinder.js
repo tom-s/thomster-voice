@@ -13,7 +13,6 @@ var intentFinder = (function() {
             var stream = fs.createReadStream(soundFile);
             wit.captureSpeechIntent(ACCESS_TOKEN, stream, "audio/wav", function (err, res) {
                 if (err) utils.speak("an error occured");
-                console.log(JSON.stringify(res, null, " "));
                 var res = _.get(res, '.outcomes[0]');
                 if(res) {
                     deferred.resolve({

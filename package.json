@@ -8,6 +8,7 @@
     "glob-all": "^3.0.1",
     "lodash": "^3.10.1",
     "minimist": "^1.2.0",
+    "moment": "^2.10.6",
     "natural": "^0.2.1",
     "node-record-lpcm16": "^0.1.4",
     "q": "^1.4.1",

@@ -3,7 +3,7 @@ var utils = require('./utils.js');
 var cmdProcessor = require('./cmdProcessor.js');
 var intentFinder = require('./intentFinder.js');
 
-var SOUND_FILE = "test.wav";
+var SOUND_FILE = "input.wav";
 
 intentFinder.get(SOUND_FILE).then(
     function success(res) {
@@ -15,7 +15,6 @@ intentFinder.get(SOUND_FILE).then(
                 })
             };
         });
-        utils.speak('OK');
         cmdProcessor.execute(res.intent, intentParams);
     },
     function error() {
