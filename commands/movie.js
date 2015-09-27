@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var glob = require('glob-all');
 var text2num = require('text2num');
 var request = require('request');
@@ -28,40 +27,6 @@ var VIDEO_EXTENSIONS = [
     '.wmv'
 ];
 
-// Retrieve arguments
-var args = require('yargs').argv;
-
-// Google speak function
-function speak(text) {
-    console.log(text); // todo
-}
-
-var command = _.get(args, '.c');
-
-// Check that a command is provided
-if(_.isUndefined(command)) {
-    speak("Sorry, I don't know how to do this");
-}
-
-
-// Call appropriate function for given command
-switch(command) {
-    case 'watch':
-        _playMovie(args._);
-        break;
-
-    case 'pause':
-        _playPause();
-        break;
-
-    case 'play':
-        _playPause();
-        break;
-
-    default :
-        speak("Sorry, I don't understand");
-}
-
 
 function _playMovie(args) {
     console.log('try to find movie with args', args);
@@ -81,24 +46,24 @@ function _playMovie(args) {
             // Try a last resort solution, finding a name by the way it sounds !
             var file = _searchSimilarSoundingFile(args.join(' '), VIDEO_EXTENSIONS);
             if(file) {
-                speak("Starting "+ file);
+                utils.speak("Starting "+ file);
                 _openFile(file);
             } else {
-                speak("Could not file movie");
+                utils.speak("Could not file movie");
             }
             break;
         case 1:
             var file = files[0];
-            speak("Starting "+ file);
+            utils.speak("Starting "+ file);
             _openFile(file);
             break;
         default:
             var fileStr = FILES + args.join(' ') + videoExtension;
             var file = _searchBestFile(files, fileStr);
             if(file) {
-                speak("Starting "+ file);
+                utils.speak("Starting "+ file);
             } else {
-                speak("Could not file movie");
+                utils.speak("Could not file movie");
                 _openFile(file);
             }
     }
@@ -149,10 +114,10 @@ function _openFile(file) {
     request(url, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body) // Show response
-            speak("Opening movie");
+            utils.speak("Opening movie");
         } else {
             console.log('an error occured', error, response);
-            speak("Sorry, I can't open the movie");
+            utils.speak("Sorry, I can't open the movie");
         }
     })
 }
@@ -199,20 +164,20 @@ function _formatArgs(args) {
         formatedArgs[episodIndex] = 'e';
 
         /*
-        // if two numbers in a row, it's almost certain to be an episod number with a missing dash
-        var previousArgIsInt = false;
-        var indexesToBeDeleted = [];
-        formatedArgs = _.compact(_.map(formatedArgs, function(arg, index) {
-            var intPattern =  /^([0-9]+)$/;
-            var argIsInt = intPattern.test(arg);
-            if(previousArgIsInt && argIsInt) {
-                arg = formatedArgs[index - 1] = formatedArgs[index - 1] + '-' + arg; // update former argument
-                indexesToBeDeleted = index;
-            }
-            previousArgIsInt = argIsInt;
-            return arg;
-        }));
-	*/
+         // if two numbers in a row, it's almost certain to be an episod number with a missing dash
+         var previousArgIsInt = false;
+         var indexesToBeDeleted = [];
+         formatedArgs = _.compact(_.map(formatedArgs, function(arg, index) {
+         var intPattern =  /^([0-9]+)$/;
+         var argIsInt = intPattern.test(arg);
+         if(previousArgIsInt && argIsInt) {
+         arg = formatedArgs[index - 1] = formatedArgs[index - 1] + '-' + arg; // update former argument
+         indexesToBeDeleted = index;
+         }
+         previousArgIsInt = argIsInt;
+         return arg;
+         }));
+         */
 
     }
 

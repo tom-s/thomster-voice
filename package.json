@@ -4,11 +4,14 @@
   "description": "",
   "main": "command.js",
   "dependencies": {
+    "fs": "0.0.2",
     "glob-all": "^3.0.1",
     "lodash": "^3.10.1",
     "minimist": "^1.2.0",
     "natural": "^0.2.1",
-    "request": "^2.63.0",
+    "node-record-lpcm16": "^0.1.4",
+    "q": "^1.4.1",
+    "request": "^2.64.0",
     "text2num": "0.0.1",
     "yargs": "^3.25.0"
   },
