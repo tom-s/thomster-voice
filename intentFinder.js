@@ -9,14 +9,17 @@ var intentFinder = (function() {
 
     return {
         get: function(soundFile) {
+            console.log("try to get intent");
             var deferred = Q.defer();
             var stream = fs.createReadStream(soundFile);
             wit.captureSpeechIntent(ACCESS_TOKEN, stream, "audio/wav", function (err, res) {
-                if (err) utils.speak("an error occured");
+                console.log('res', res);
+                if (err) utils.speak("An error occured");
                 var res = _.get(res, '.outcomes[0]');
                 if(res) {
                     deferred.resolve({
                         intent: res.intent,
+                        confidence: res.confidence,
                         params: res.entities
                     })
                 } else {

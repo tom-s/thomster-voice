@@ -15,7 +15,7 @@ intentFinder.get(SOUND_FILE).then(
                 })
             };
         });
-        cmdProcessor.execute(res.intent, intentParams);
+        cmdProcessor.execute(res.intent, res.confidence, intentParams);
     },
     function error() {
         utils.speak("Sorry, I can't do that !");

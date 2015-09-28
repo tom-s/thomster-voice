@@ -4,13 +4,32 @@ var utils = require('./utils.js');
 // Commands
 var weatherCmd = require('./commands/weather.js');
 var timeCmd = require('./commands/time.js');
+var wolframCmd = require('./commands/wolfram.js');
+
+var MIN_CONFIDENCE_THRESHOLD = 0.4;
 
 cmdProcessor = (function() {
     return {
-        execute: function(cmd, params) {
-            console.log("execute", cmd, params);
+        execute: function(cmd, confidence, params) {
+            if(confidence < MIN_CONFIDENCE_THRESHOLD) {
+                cmd = 'answer'; // force wolfram if unsure
+            }
             // Call appropriate function for given command
             switch(cmd) {
+                case 'repeat':
+                    utils.repeat();
+                    break;
+                case 'answer':
+                    var query = _.get(_.find(params, {key: 'search_query'}), '.values[0]');
+                    wolframCmd.getAnswer(query).then(
+                        function success(response) {
+                            utils.speak(response);
+                        },
+                        function error() {
+                            utils.speak("Sorry, I can't get the answer to your question");
+                        }
+                    );
+                    break;
                 case 'weather':
                     var location = _.get(_.find(params, {key: 'location'}), '[0]');
                     //weather.get(location) ;
@@ -22,7 +41,7 @@ cmdProcessor = (function() {
                             utils.speak("Today is : " + response);
                         },
                         function error() {
-                            utils.speaks("Sorry, I can't get the time");
+                            utils.speak("Sorry, I can't get the time");
                         }
                     );
                     break;
@@ -33,7 +52,7 @@ cmdProcessor = (function() {
                             utils.speak("The time is : " + response);
                         },
                         function error() {
-                            utils.speaks("Sorry, I can't get the time");
+                            utils.speak("Sorry, I can't get the time");
                         }
                     );
                     break;
