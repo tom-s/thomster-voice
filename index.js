@@ -6,6 +6,7 @@ var intentFinder = require('./intentFinder.js');
 var Q = require('q');
 var ip = require('ip');
 
+var DETECTION_PERCENTAGE = '3%';
 var AUDIO_SOURCE = 'default';
 var NOISE_PROFILE = 'noise.prof';
 var SOUND_FILE = "input.wav";
@@ -53,7 +54,7 @@ function _wakeUp() {
 
 /* Wait for a wakeup command */
 function _sleep() {
-    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 1% 1 1.0 1%';
+    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 '  + DETECTION_PERCENTAGE + ' 1 1.0 ' + DETECTION_PERCENTAGE;
     console.log("sleep", cmd);
     var child = exec(cmd);
     child.on('close', function(code) {
@@ -75,7 +76,7 @@ function _sleep() {
 
 /* Listen for a command */
 function _listen() {
-    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 1% 1 1.0 1%';
+    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 ' + DETECTION_PERCENTAGE + ' 1 1.0 ' + DETECTION_PERCENTAGE;
     console.log("listen", cmd);
     var child = exec(cmd);
     child.on('close', function(code) {
