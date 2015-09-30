@@ -6,7 +6,7 @@ var intentFinder = require('./intentFinder.js');
 var Q = require('q');
 var ip = require('ip');
 
-var DETECTION_PERCENTAGE = '3%';
+var DETECTION_PERCENTAGE = '2%';
 var AUDIO_SOURCE = 'default';
 var NOISE_PROFILE = 'noise.prof';
 var SOUND_FILE = "input.wav";
@@ -66,7 +66,7 @@ function _sleep() {
                         _listen();
                     })
                 } else {
-                    _sleep(); // carry on sleeping
+                   // _sleep(); // carry on sleeping
                 }
             });
         });
