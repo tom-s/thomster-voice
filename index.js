@@ -53,7 +53,7 @@ function _wakeUp() {
 
 /* Wait for a wakeup command */
 function _sleep() {
-    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 5% 1 1 1%';
+    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 1% 1 1 1%';
     var child = exec(cmd);
     child.on('close', function(code) {
         _cleanFile().then(function() {
@@ -74,8 +74,8 @@ function _sleep() {
 
 /* Listen for a command */
 function _listen() {
-    console.log("listen for command");
-    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 5% 1 1.0 5%';
+    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 1% 1 1.0 1%';
+    console.log("listen", cmd);
     var child = exec(cmd);
     child.on('close', function(code) {
         _cleanFile().then(function() {
@@ -102,6 +102,7 @@ if(ipAddress !== '192.168.1.20') {
     AUDIO_SOURCE = 'hw:0,0';
     NOISE_PROFILE = 'noise-rasp';
 }
+
 _sleep();
 
 
