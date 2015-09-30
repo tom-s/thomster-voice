@@ -87,7 +87,7 @@ function _listen() {
 function  _cleanFile() {
     var deferred = Q.defer();
     // Clean noise
-    var cmd = 'sox ' + SOUND_FILE + ' ' + SOUND_FILE_CLEAN + ' noisered ' + NOISE_PROFIL + ' 0.21';
+    var cmd = 'sox ' + SOUND_FILE + ' ' + SOUND_FILE_CLEAN + ' noisered ' + NOISE_PROFILE + ' 0.21';
     console.log("clean", cmd);
     exec(cmd, function(error, duration, stderr) {
         deferred.resolve();
