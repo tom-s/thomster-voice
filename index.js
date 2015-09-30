@@ -30,8 +30,9 @@ function _analyze() {
             _sleep();
         },
         function error() {
-            utils.speak("Sorry, can you repeat ?");
-            _listen();
+            utils.speak("Sorry, can you repeat ?").then(function() {
+                _listen();
+            })
         }
     );
 }
@@ -45,7 +46,7 @@ function _wakeUp() {
         console.log("duration before", duration);
         duration = parseFloat(duration);
         console.log("duration", duration);
-        if(duration > 0.5 && duration < 1.5) {
+        if(duration > 0.5 && duration < 1.0) {
             deferred.resolve(true);
         } else {
             deferred.resolve(false);
@@ -65,11 +66,11 @@ function _sleep() {
             _wakeUp().then(function(wakeUp) {
                 console.log("wake up ? ", wakeUp);
                 if(wakeUp) {
-                    utils.speak("Yes ?").then(function success() {
+                    utils.speak("Yes ?").then(function() {
                         _listen();
                     })
                 } else {
-                   // _sleep(); // carry on sleeping
+                   _sleep(); // carry on sleeping
                 }
             });
         });
