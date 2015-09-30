@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98b8e098-25cc-455a-9ebf-f22bddeac4eb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/input-clean.wav" afterPath="$PROJECT_DIR$/input-clean.wav" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/input.wav" afterPath="$PROJECT_DIR$/input.wav" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output.wav" afterPath="$PROJECT_DIR$/output.wav" />
     </list>
     <ignored path="thomster-voice.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -262,7 +264,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1055" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973932" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
