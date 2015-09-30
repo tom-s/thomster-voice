@@ -4,8 +4,9 @@ var utils = require('./utils.js');
 var cmdProcessor = require('./cmdProcessor.js');
 var intentFinder = require('./intentFinder.js');
 var Q = require('q');
+var ip = require('ip');
 
-var AUDIO_SOURCE = 'hw:0,0';
+var AUDIO_SOURCE = 'default';
 var SOUND_FILE = "input.wav";
 var SOUND_FILE_CLEAN  = "input-clean.wav";
 
@@ -94,7 +95,13 @@ function  _cleanFile() {
 }
 
 /* Init */
+var ipAddress = ip.address();
+if(ipAddress !== '192.168.1.20') {
+    console.log("raspberry");
+    AUDIO_SOURCE = 'hw:0,0';
+}
 _sleep();
+
 
 
 
