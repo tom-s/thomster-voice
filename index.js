@@ -39,7 +39,9 @@ function _wakeUp() {
     var deferred = Q.defer();
     // Check that file is the right duration (to filter out noises)
     var cmd = "sox " + SOUND_FILE_CLEAN + " -n stat 2>&1 | sed -n 's#^Length (seconds):[^0-9]*\\([0-9.]*\\)$#\\1#p'";
+    console.log("file length", cmd);
     exec(cmd, function(error, duration, stderr) {
+        console.log("duration before", duration);
         duration = parseFloat(duration);
         console.log("duration", duration);
         if(duration > 0.5 && duration < 1.5) {
