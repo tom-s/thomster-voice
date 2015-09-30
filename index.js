@@ -15,6 +15,7 @@ var SOUND_FILE_CLEAN  = "input-clean.wav";
 var LISTEN_MAX_TRIALS = 2;
 
 var step = 0; // wake up step
+var sleepTiming;
 
 function _analyze() {
     intentFinder.get(SOUND_FILE_CLEAN).then(
@@ -34,14 +35,14 @@ function _analyze() {
             });
         },
         function error() {
-            utils.speak("Sorry, can you repeat ?").then(function() {
+            utils.speak("Sorry I didn't get that, repeat please").then(function() {
                 _listen();
             })
         }
     );
 }
 
-function _wakeUp() {
+function _checkFile() {
     var deferred = Q.defer();
     // Check that file is the right duration (to filter out noises)
     var cmd = "sox " + SOUND_FILE_CLEAN + " -n stat 2>&1 | sed -n 's#^Length (seconds):[^0-9]*\\([0-9.]*\\)$#\\1#p'";
@@ -50,7 +51,7 @@ function _wakeUp() {
         // Is this a clap of hand ?
         duration = parseFloat(duration);
         console.log("duration", duration, step);
-        if(duration < 0.7){
+        if(duration < 1){
             var res = (step >= 1) ? true : false;
             step = (res) ?  0 : step + 1;
             deferred.resolve(res);
@@ -64,22 +65,38 @@ function _wakeUp() {
 
 /* Wait for a clap of hand to wake up */
 function _sleep(resetStep) {
+    console.log("------ SLEEP --------");
+    // Step step
     if(resetStep) {
         step  = 0;
     }
+
+    // Listen for clap
     var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 '  + DETECTION_PERCENTAGE_START + ' 1 0.1 ' + DETECTION_PERCENTAGE_END;
     console.log("sleep", cmd);
     var child = exec(cmd);
     child.on('close', function(code) {
+
+        // Check if step should be reset
+        var timeData = (sleepTiming) ? process.hrtime(sleepTiming) : null;
+        var elapsedTime = parseFloat(_.get(timeData, '[0]')); // seconds only
+        console.log("elapsed time", timeData, elapsedTime);
+        if(!isNaN(elapsedTime) && elapsedTime > 2) {
+            step = 0;
+        }
+
+        // Clean and check file and take action
         _cleanFile().then(function() {
-            _wakeUp().then(function(wakeUp) {
+            _checkFile().then(function(wakeUp) {
                 console.log("wake up ? ", wakeUp, step);
                 if(wakeUp) {
                     utils.speak("Yes ?").then(function() {
                         _listen();
                     })
                 } else {
-                   _sleep(); // carry on sleeping
+                    console.log("set sleep timing !");
+                    sleepTiming = process.hrtime();
+                    _sleep(); // carry on sleeping
                 }
             });
         });
@@ -90,7 +107,7 @@ function _sleep(resetStep) {
 /* Listen for a command */
 function _listen(nb) {
     nb = (_.isUndefined(nb)) ? 1 : nb;
-    var cmd = 'timeout --signal=SIGQUIT 5 sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 ' + DETECTION_PERCENTAGE_START + ' 1 1.0 ' + DETECTION_PERCENTAGE_END;
+    var cmd = 'timeout --signal=SIGINT 5 sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 ' + DETECTION_PERCENTAGE_START + ' 1 1.0 ' + DETECTION_PERCENTAGE_END;
     console.log("listen", cmd);
     var child = exec(cmd);
     child.on('close', function(code) {
