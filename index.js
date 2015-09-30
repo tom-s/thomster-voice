@@ -6,7 +6,8 @@ var intentFinder = require('./intentFinder.js');
 var Q = require('q');
 var ip = require('ip');
 
-var DETECTION_PERCENTAGE = '2%';
+var DETECTION_PERCENTAGE_START = '5%';
+var DETECTION_PERCENTAGE_END = '5%';
 var AUDIO_SOURCE = 'default';
 var NOISE_PROFILE = 'noise.prof';
 var SOUND_FILE = "input.wav";
@@ -56,7 +57,7 @@ function _wakeUp() {
 
 /* Wait for a wakeup command */
 function _sleep() {
-    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 '  + DETECTION_PERCENTAGE + ' 1 1.0 ' + DETECTION_PERCENTAGE;
+    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 '  + DETECTION_PERCENTAGE_START + ' 1 1.0 ' + DETECTION_PERCENTAGE_END;
     console.log("sleep", cmd);
     var child = exec(cmd);
     child.on('close', function(code) {
@@ -78,7 +79,7 @@ function _sleep() {
 
 /* Listen for a command */
 function _listen() {
-    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 ' + DETECTION_PERCENTAGE + ' 1 1.0 ' + DETECTION_PERCENTAGE;
+    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 ' + DETECTION_PERCENTAGE_START + ' 1 1.0 ' + DETECTION_PERCENTAGE_END;
     console.log("listen", cmd);
     var child = exec(cmd);
     child.on('close', function(code) {
@@ -105,6 +106,8 @@ if(ipAddress !== '192.168.1.20') {
     console.log("raspberry config detected");
     AUDIO_SOURCE = 'hw:0,0';
     NOISE_PROFILE = 'noise-rasp';
+    DETECTION_PERCENTAGE_START = '1%';
+    DETECTION_PERCENTAGE_END = '2%';
 }
 
 _sleep();
