@@ -26,8 +26,11 @@ function _analyze() {
                     })
                 };
             });
-            cmdProcessor.execute(res.intent, res.confidence, intentParams);
-            _sleep();
+            cmdProcessor.execute(res.intent, res.confidence, intentParams).then(function success() {
+                _sleep();
+            }, function error() {
+                _sleep();
+            });
         },
         function error() {
             utils.speak("Sorry, can you repeat ?").then(function() {
@@ -46,7 +49,7 @@ function _wakeUp() {
         console.log("duration before", duration);
         duration = parseFloat(duration);
         console.log("duration", duration);
-        if(duration > 0.5 && duration < 1.0) {
+        if(duration > 0.3 && duration < 1) {
             deferred.resolve(true);
         } else {
             deferred.resolve(false);

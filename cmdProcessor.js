@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var utils = require('./utils.js');
+var Q = require('q');
 
 // Commands
 var weatherCmd = require('./commands/weather.js');
@@ -11,6 +12,7 @@ var MIN_CONFIDENCE_THRESHOLD = 0.4;
 cmdProcessor = (function() {
     return {
         execute: function(cmd, confidence, params) {
+            var deferred = Q.defer();
             if(confidence < MIN_CONFIDENCE_THRESHOLD) {
                 cmd = 'answer'; // force wolfram if unsure
             }
@@ -23,10 +25,14 @@ cmdProcessor = (function() {
                     var query = _.get(_.find(params, {key: 'search_query'}), '.values[0]');
                     wolframCmd.getAnswer(query).then(
                         function success(response) {
-                            utils.speak(response);
+                            utils.speak(response).then(function() {
+                                deferred.resolve();
+                            });
                         },
                         function error() {
-                            utils.speak("Sorry, I can't get the answer to your question");
+                            utils.speak("Sorry, I can't get the answer to your question").then(function() {
+                                deferred.reject();
+                            });
                         }
                     );
                     break;
@@ -38,10 +44,14 @@ cmdProcessor = (function() {
                     var location = _.get(_.find(params, {key: 'location'}), '.values[0]');
                     timeCmd.getDay(location).then(
                         function success(response) {
-                            utils.speak("Today is : " + response);
+                            utils.speak("Today is : " + response).then(function() {
+                                deferred.resolve();
+                            });
                         },
                         function error() {
-                            utils.speak("Sorry, I can't get the time");
+                            utils.speak("Sorry, I can't get the time").then(function() {
+                                deferred.reject();
+                            });
                         }
                     );
                     break;
@@ -49,10 +59,14 @@ cmdProcessor = (function() {
                     var location = _.get(_.find(params, {key: 'location'}), '.values[0]');
                     timeCmd.getTime(location).then(
                         function success(response) {
-                            utils.speak("The time is : " + response);
+                            utils.speak("The time is : " + response).then(function() {
+                                deferred.resolve();
+                            });
                         },
                         function error() {
-                            utils.speak("Sorry, I can't get the time");
+                            utils.speak("Sorry, I can't get the time").then(function() {
+                                deferred.reject();
+                            });
                         }
                     );
                     break;
@@ -69,6 +83,7 @@ cmdProcessor = (function() {
                 default :
                     utils.speak("Sorry, I don't know how to that");
             }
+            return deferred.promise;
         }
     };
 })();
