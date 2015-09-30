@@ -7,6 +7,7 @@ var Q = require('q');
 var ip = require('ip');
 
 var AUDIO_SOURCE = 'default';
+var NOISE_PROFILE = 'noise.prof';
 var SOUND_FILE = "input.wav";
 var SOUND_FILE_CLEAN  = "input-clean.wav";
 
@@ -86,7 +87,7 @@ function _listen() {
 function  _cleanFile() {
     var deferred = Q.defer();
     // Clean noise
-    var cmd = 'sox ' + SOUND_FILE + ' ' + SOUND_FILE_CLEAN + ' noisered noise.prof 0.21';
+    var cmd = 'sox ' + SOUND_FILE + ' ' + SOUND_FILE_CLEAN + ' noisered ' + NOISE_PROFIL + ' 0.21';
     console.log("clean", cmd);
     exec(cmd, function(error, duration, stderr) {
         deferred.resolve();
@@ -97,8 +98,9 @@ function  _cleanFile() {
 /* Init */
 var ipAddress = ip.address();
 if(ipAddress !== '192.168.1.20') {
-    console.log("raspberry");
+    console.log("raspberry config detected");
     AUDIO_SOURCE = 'hw:0,0';
+    NOISE_PROFILE = 'noise-rasp';
 }
 _sleep();
 
