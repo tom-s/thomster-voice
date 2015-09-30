@@ -105,7 +105,7 @@ var ipAddress = ip.address();
 if(ipAddress !== '192.168.1.20') {
     console.log("raspberry config detected");
     AUDIO_SOURCE = 'hw:0,0';
-    NOISE_PROFILE = 'noise-rasp';
+    NOISE_PROFILE = 'noise-rasp.prof';
     DETECTION_PERCENTAGE_START = '1%';
     DETECTION_PERCENTAGE_END = '2%';
 }
