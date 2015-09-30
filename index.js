@@ -53,7 +53,8 @@ function _wakeUp() {
 
 /* Wait for a wakeup command */
 function _sleep() {
-    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 1% 1 1 1%';
+    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 1% 1 1.0 1%';
+    console.log("sleep", cmd);
     var child = exec(cmd);
     child.on('close', function(code) {
         _cleanFile().then(function() {
