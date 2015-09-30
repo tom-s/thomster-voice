@@ -5,6 +5,7 @@ var cmdProcessor = require('./cmdProcessor.js');
 var intentFinder = require('./intentFinder.js');
 var Q = require('q');
 
+var AUDIO_SOURCE = 'hw:0,0';
 var SOUND_FILE = "input.wav";
 var SOUND_FILE_CLEAN  = "input-clean.wav";
 
@@ -50,7 +51,7 @@ function _wakeUp() {
 
 /* Wait for a wakeup command */
 function _sleep() {
-    var cmd = 'sox -t alsa default ' + SOUND_FILE + ' silence 1 0.1 5% 1 1 1%';
+    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 5% 1 1 1%';
     var child = exec(cmd);
     child.on('close', function(code) {
         _cleanFile().then(function() {
@@ -72,7 +73,7 @@ function _sleep() {
 /* Listen for a command */
 function _listen() {
     console.log("listen for command");
-    var cmd = 'sox -t alsa default ' + SOUND_FILE + ' silence 1 0.1 5% 1 1.0 5%';
+    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 5% 1 1.0 5%';
     var child = exec(cmd);
     child.on('close', function(code) {
         _cleanFile().then(function() {
