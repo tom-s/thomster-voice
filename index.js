@@ -6,11 +6,12 @@ var intentFinder = require('./intentFinder.js');
 var Q = require('q');
 
 var SOUND_FILE = "input.wav";
+var SOUND_FILE_CLEAN  = "input-clean.wav";
 
 var waitingForCommand = false;
 
 function _analyze() {
-    intentFinder.get(SOUND_FILE).then(
+    intentFinder.get(SOUND_FILE_CLEAN).then(
         function success(res) {
             var intentParams = _.map(res.params, function(param, key) {
                 return {
@@ -33,7 +34,7 @@ function _analyze() {
 function _wakeUp() {
     var deferred = Q.defer();
     // Check that file is the right duration (to filter out noises)
-    var cmd = "sox " + SOUND_FILE + " -n stat 2>&1 | sed -n 's#^Length (seconds):[^0-9]*\\([0-9.]*\\)$#\\1#p'";
+    var cmd = "sox " + SOUND_FILE_CLEAN + " -n stat 2>&1 | sed -n 's#^Length (seconds):[^0-9]*\\([0-9.]*\\)$#\\1#p'";
     exec(cmd, function(error, duration, stderr) {
         duration = parseFloat(duration);
         console.log("duration", duration);
@@ -52,16 +53,19 @@ function _sleep() {
     var cmd = 'sox -t alsa default ' + SOUND_FILE + ' silence 1 0.1 5% 1 1 1%';
     var child = exec(cmd);
     child.on('close', function(code) {
-        _wakeUp().then(function(wakeUp) {
-            console.log("wake up ? ", wakeUp);
-            if(wakeUp) {
-                utils.speak("Yes ?").then(function success() {
-                    _listen();
-                })
-            } else {
-                _sleep(); // carry on sleeping
-            }
+        _cleanFile().then(function() {
+            _wakeUp().then(function(wakeUp) {
+                console.log("wake up ? ", wakeUp);
+                if(wakeUp) {
+                    utils.speak("Yes ?").then(function success() {
+                        _listen();
+                    })
+                } else {
+                    _sleep(); // carry on sleeping
+                }
+            });
         });
+
     });
 }
 
@@ -71,8 +75,21 @@ function _listen() {
     var cmd = 'sox -t alsa default ' + SOUND_FILE + ' silence 1 0.1 5% 1 1.0 5%';
     var child = exec(cmd);
     child.on('close', function(code) {
-        _analyze();
+        _cleanFile().then(function() {
+            _analyze();
+        });
     });
+}
+
+function  _cleanFile() {
+    var deferred = Q.defer();
+    // Clean noise
+    var cmd = 'sox ' + SOUND_FILE + ' ' + SOUND_FILE_CLEAN + ' noisered noise.prof 0.21';
+    console.log("clean", cmd);
+    exec(cmd, function(error, duration, stderr) {
+        deferred.resolve();
+    });
+    return deferred.promise;
 }
 
 /* Init */

@@ -4,7 +4,6 @@
   "description": "",
   "main": "command.js",
   "dependencies": {
-    "commander": "^2.8.1",
     "dct": "^0.0.2",
     "fft-js": "0.0.6",
     "fs": "0.0.2",
@@ -15,11 +14,7 @@
     "natural": "^0.2.1",
     "node-record-lpcm16": "^0.1.4",
     "q": "^1.4.1",
-    "request": "^2.64.0",
-    "signal-windows": "0.0.1",
-    "text2num": "0.0.1",
-    "wav": "^1.0.0",
-    "yargs": "^3.25.0"
+    "request": "^2.64.0"
   },
   "devDependencies": {},
   "scripts": {
