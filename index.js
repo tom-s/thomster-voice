@@ -13,7 +13,7 @@ var NOISE_PROFILE = 'noise.prof';
 var SOUND_FILE = "input.wav";
 var SOUND_FILE_CLEAN  = "input-clean.wav";
 
-var waitingForCommand = false;
+var step = 0; // wake up step
 
 function _analyze() {
     intentFinder.get(SOUND_FILE_CLEAN).then(
@@ -50,7 +50,8 @@ function _wakeUp() {
         duration = parseFloat(duration);
         console.log("duration", duration);
         if(duration > 0.3 && duration < 1) {
-            deferred.resolve(true);
+            var res = (step === 1) ? true : false;
+            deferred.resolve(false);
         } else {
             deferred.resolve(false);
         }
@@ -67,13 +68,15 @@ function _sleep() {
     child.on('close', function(code) {
         _cleanFile().then(function() {
             _wakeUp().then(function(wakeUp) {
-                console.log("wake up ? ", wakeUp);
+                console.log("wake up ? ", wakeUp, stepgit );
                 if(wakeUp) {
                     utils.speak("Yes ?").then(function() {
                         _listen();
+                        step = 0;
                     })
                 } else {
                    _sleep(); // carry on sleeping
+                    step ++;
                 }
             });
         });
