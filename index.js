@@ -4,7 +4,9 @@ var cmdProcessor = require('./cmdProcessor.js');
 var intentFinder = require('./intentFinder.js');
 
 var SOUND_FILE = "input.wav";
+var COMPARE_WITH = "wendy.wav";
 
+/*
 intentFinder.get(SOUND_FILE).then(
     function success(res) {
         var intentParams = _.map(res.params, function(param, key) {
@@ -20,4 +22,5 @@ intentFinder.get(SOUND_FILE).then(
     function error() {
         utils.speak("Sorry, I can't do that !");
     }
-);
+);*/
+

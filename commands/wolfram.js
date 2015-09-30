@@ -17,6 +17,7 @@ var wolfram = (function() {
                     var arr = rx.exec(body);
                     return _.get(arr, '[1]');
                 })();
+                console.log("response", response);
                 if(response) {
                     deferred.resolve(response);
                 } else {
