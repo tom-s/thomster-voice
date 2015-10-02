@@ -18,6 +18,12 @@ cmdProcessor = (function() {
             }
             // Call appropriate function for given command
             switch(cmd) {
+                case 'shutUp':
+                    utils.shutUp();
+                    utils.speak("OK").then(function() {
+                        deferred.resolve();
+                    });
+                    break;
                 case 'repeat':
                     utils.repeat();
                     break;

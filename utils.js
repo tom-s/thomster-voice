@@ -19,6 +19,18 @@ var utils = (function() {
         },
         repeat: function() {
             this.speak(lastText);
+        },
+        shutUp: function() {
+            var deferred = Q.defer();
+            var cmd = 'killall aplay';
+            exec(cmd, function(error, stdout, stderr) {
+                // command output is in stdout
+                if(error) {
+                    console.log('error while executing command ', cmd);
+                }
+                deferred.resolve();
+            });
+            return deferred.promise;
         }
     };
 })();
