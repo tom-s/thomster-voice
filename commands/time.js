@@ -6,7 +6,6 @@ var moment = require('moment-timezone');
 var ACCESS_TOKEN = '56c99f2e98d8dbb8ed319b3485260fec';
 var GOOGLE_API_URL = 'http://maps.googleapis.com/maps/api/geocode/json';
 var GOOGLE_TIMEZONE_API_URL = 'https://maps.googleapis.com/maps/api/timezone/json';
-var API_URL = 'http://www.timeanddate.com/worldclock/';
 
 var time = (function() {
 
