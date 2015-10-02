@@ -19,6 +19,7 @@ var weather = (function() {
                     } else {
                         var json = JSON.parse(body);
                         console.log("json", json);
+                        // récupérer, main, temperature , temperature min & max
                         deferred.resolve(json);
                     }
             });
