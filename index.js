@@ -152,6 +152,9 @@ if(ipAddress !== '192.168.1.20') {
     DETECTION_PERCENTAGE_END = '3%';
 }
 
-_sleep(true);
+//_sleep(true);
 
-
+var weather = require('./commands/weather.js');
+weather.get('Lyon').then(function(weather) {
+   //console.log("res", weather);
+});

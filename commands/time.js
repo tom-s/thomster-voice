@@ -3,7 +3,6 @@ var request = require('request');
 var Q = require('q');
 var moment = require('moment-timezone');
 
-var ACCESS_TOKEN = '56c99f2e98d8dbb8ed319b3485260fec';
 var GOOGLE_API_URL = 'http://maps.googleapis.com/maps/api/geocode/json';
 var GOOGLE_TIMEZONE_API_URL = 'https://maps.googleapis.com/maps/api/timezone/json';
 
@@ -23,7 +22,6 @@ var time = (function() {
                 var json = JSON.parse(body);
                 var timezone = _.get(json, '.timeZoneId');
                 if(timezone) {
-                    console.log("resolve with", timezone);
                     deferred.resolve(timezone);
                 } else {
                     deferred.reject();

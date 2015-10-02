@@ -9,15 +9,18 @@ var weather = (function() {
     return {
         get: function (location) {
             var deferred = Q.defer();
-            var url = 'api.openweathermap.org/data/2.5/forecast';
-            var options = {
+            var url = 'http://api.openweathermap.org/data/2.5/weather';
+            var qs = {
                 'q': location
             };
-            request.get(url, options).on('response', function (response) {
-                console.log("response", response);
-                deferred.resolve(response);
-            }).on('error', function (error) {
-                deferred.reject();
+            request.get(url, {qs: qs}, function (err, response, body) {
+                    if(err) {
+                        deferred.reject();
+                    } else {
+                        var json = JSON.parse(body);
+                        console.log("json", json);
+                        deferred.resolve(json);
+                    }
             });
 
             return deferred.promise;
