@@ -155,6 +155,6 @@ if(ipAddress !== '192.168.1.20') {
 //_sleep(true);
 
 var weather = require('./commands/weather.js');
-weather.get('Lyon').then(function(weather) {
-   //console.log("res", weather);
+weather.get('Lyon', 'today').then(function(weather) {
+   console.log("res", weather);
 });

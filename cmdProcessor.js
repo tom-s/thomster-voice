@@ -43,8 +43,21 @@ cmdProcessor = (function() {
                     );
                     break;
                 case 'weather':
+                    console.log("params", params);
                     var location = _.get(_.find(params, {key: 'location'}), '[0]');
-                    //weather.get(location) ;
+                    var datetime = _.get(_.find(params, {key: 'datetime'}), '[0]');
+                    weatherCmd.get(location, datetime).then(
+                        function success(response) {
+                            utils.speak(response).then(function() {
+                                deferred.resolve();
+                            });
+                        },
+                        function error() {
+                            utils.speak("Sorry, I can't get the weather").then(function() {
+                                deferred.reject();
+                            });
+                        }
+                    ) ;
                     break;
                 case 'day':
                     var location = _.get(_.find(params, {key: 'location'}), '.values[0]');
@@ -93,9 +106,5 @@ cmdProcessor = (function() {
         }
     };
 })();
-
-
-
-
 
 module.exports = cmdProcessor;
