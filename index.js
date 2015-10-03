@@ -148,13 +148,8 @@ if(ipAddress !== '192.168.1.20') {
     console.log("raspberry config detected");
     AUDIO_SOURCE = 'hw:0,0';
     NOISE_PROFILE = 'noise-rasp.prof';
-    DETECTION_PERCENTAGE_START = '3%';
-    DETECTION_PERCENTAGE_END = '3%';
+    //DETECTION_PERCENTAGE_START = '5%';
+    //DETECTION_PERCENTAGE_END = '5%';
 }
 
-//_sleep(true);
-
-var weather = require('./commands/weather.js');
-weather.get('Lyon', 'today').then(function(weather) {
-   console.log("res", weather);
-});
+_sleep(true);

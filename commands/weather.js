@@ -6,6 +6,10 @@ var ACCESS_TOKEN = '56c99f2e98d8dbb8ed319b3485260fec';
 
 var weather = (function() {
 
+    function _convertKelvinToCelcius(temp) {
+        return temp - 273,15;
+    }
+
     return {
         get: function (location) {
             var deferred = Q.defer();
@@ -18,9 +22,12 @@ var weather = (function() {
                         deferred.reject();
                     } else {
                         var json = JSON.parse(body);
-                        console.log("json", json);
-                        // todo récupérer, main, temperature , temperature min & max & build string
-                        deferred.resolve(json);
+                        var desc = _.get(json, '.weather[0].description');
+                        var temperature = _convertKelvinToCelcius(_.get(json, '.main.temp'));
+                        var temperatureMax = _convertKelvinToCelcius(_.get(json, '.main.temp_max'));
+                        var text = 'In ' + location + ', ' + desc + '. Temperature is currently ' + temperature + ' degrees. ';
+                        text+= 'Maximum temperature of the day is ' + temperatureMax + ' degrees.';
+                        deferred.resolve(text);
                     }
             });
 
