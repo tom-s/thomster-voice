@@ -12,6 +12,7 @@ var weather = (function() {
 
     return {
         get: function (location) {
+            location = (location) ? location : 'Lyon';
             var deferred = Q.defer();
             var url = 'http://api.openweathermap.org/data/2.5/weather';
             var qs = {

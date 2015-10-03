@@ -13,6 +13,8 @@ var NOISE_PROFILE = 'noise.prof';
 var SOUND_FILE = "input.wav";
 var SOUND_FILE_CLEAN  = "input-clean.wav";
 var LISTEN_MAX_TRIALS = 2;
+var CLAP_AMPLITUDE_THRESHOLD=0.99;
+var CLAP_ENERGY_THRESHOLD=0.2;
 
 var step = 0; // wake up step
 var sleepTiming;
@@ -42,16 +44,28 @@ function _analyze() {
     );
 }
 
+function _isClap() {
+
+}
+
 function _checkFile() {
     var deferred = Q.defer();
     // Check that file is the right duration (to filter out noises)
-    var cmd = "sox " + SOUND_FILE_CLEAN + " -n stat 2>&1 | sed -n 's#^Length (seconds):[^0-9]*\\([0-9.]*\\)$#\\1#p'";
-    console.log("file length", cmd);
-    exec(cmd, function(error, duration, stderr) {
+    var cmd = "sox " + SOUND_FILE_CLEAN + " -n stat 2>&1"; //| sed -n 's#^Length (seconds):[^0-9]*\\([0-9.]*\\)$#\\1#p'
+    var regExDuration = /Length[\s]+\(seconds\):[\s]+([0-9.]+)/;
+    var regExRms = /RMS[\s]+amplitude:[\s]+([0-9.]+)/;
+    var regExMax = /Maximum[\s]+amplitude:[\s]+([0-9.]+)/;
+    exec(cmd, function(error, out, stderr) {
         // Is this a clap of hand ?
-        duration = parseFloat(duration);
-        console.log("duration", duration, step);
-        if(duration < 1){
+        var durationData = out.match(regExDuration);
+        var duration = parseFloat(durationData[1]);
+        var rmsData = out.match(regExRms);
+        var rms = parseFloat(rmsData[1]);
+        var maxData = out.match(regExMax);
+        var max = parseFloat(maxData[1]);
+
+        // Does it have the characteristics of a clap
+        if(duration < 1 && max > CLAP_AMPLITUDE_THRESHOLD && rms < CLAP_ENERGY_THRESHOLD){
             var res = (step >= 1) ? true : false;
             step = (res) ?  0 : step + 1;
             deferred.resolve(res);
