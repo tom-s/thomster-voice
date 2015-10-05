@@ -1,0 +1,18 @@
+- faire la gestion des fenêtres avec
+wmctrl > tester avec des desktops !
+- lancer kodi si il n'est pas lancé avant de lancer un film
+- si il lancé, maximize
+
+# Faire commandes reconnaissance vocale
+---- lundi
+- faire fonctionenr getMovie
+-> créer une intent pour les séries
+-> créer une intent pour les films
+--- mardi
+- faire une intent play some music
+-> communique avec mon PC ou pas ?
+-> faire commandes : "music please"
+---- mercredi
+- faire le forecast
+- faire une refacto de wit.js
+---- bonus

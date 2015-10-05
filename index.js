@@ -166,4 +166,9 @@ if(ipAddress !== '192.168.1.20') {
     //DETECTION_PERCENTAGE_END = '5%';
 }
 
-_sleep(true);
+//_sleep(true);
+// testing
+var windowManager = require('./utils/windowManager.js');
+windowManager.getWindowId('Guake').then(function success(id) {
+    console.log("id", id);
+});
