@@ -44,10 +44,6 @@ function _analyze() {
     );
 }
 
-function _isClap() {
-
-}
-
 function _checkFile() {
     var deferred = Q.defer();
     // Check that file is the right duration (to filter out noises)

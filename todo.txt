@@ -1,5 +1,3 @@
-- faire la gestion des fenêtres avec
-wmctrl > tester avec des desktops !
 - lancer kodi si il n'est pas lancé avant de lancer un film
 - si il lancé, maximize
 
