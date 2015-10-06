@@ -62,10 +62,12 @@ function _checkFile() {
 
         // Does it have the characteristics of a clap
         if(duration < 1 && max > CLAP_AMPLITUDE_THRESHOLD && rms < CLAP_ENERGY_THRESHOLD){
+            console.log("clap !");
             var res = (step >= 1) ? true : false;
             step = (res) ?  0 : step + 1;
             deferred.resolve(res);
         } else {
+            console.log("not a clap", max, rms);
             deferred.resolve(false);
         }
 
