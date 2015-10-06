@@ -14,7 +14,7 @@ var SOUND_FILE = "input.wav";
 var SOUND_FILE_CLEAN  = "input-clean.wav";
 var LISTEN_MAX_TRIALS = 2;
 var CLAP_AMPLITUDE_THRESHOLD=0.7;
-var CLAP_ENERGY_THRESHOLD=0.2;
+var CLAP_ENERGY_THRESHOLD=0.3;
 
 var step = 0; // wake up step
 var sleepTiming;
