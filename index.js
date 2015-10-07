@@ -33,8 +33,10 @@ function _analyze() {
             cmdProcessor.execute(res.intent, res.confidence, intentParams).then(function success() {
                 _sleep(true);
             }, function error() {
-                utils.speak("Sorry, I don't know how to that");
-                _sleep(true);
+                utils.speak("Sorry, I don't know how to that").then(function() {
+                    _sleep(true);
+                })
+
             });
         },
         function error() {

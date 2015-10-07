@@ -92,8 +92,9 @@ cmdProcessor = (function() {
                     );
                     break;
 
-                case 'watchMovie':
+                case 'playMovie':
                     var movieName = _.get(_.find(params, {key: 'movieName'}), '.values[0]');
+                    console.log("moviename", movieName);
                     movieCmd.playMovie(movieName).then(
                         function success(response) {
                             utils.speak("Playing movie").then(function() {
@@ -108,7 +109,7 @@ cmdProcessor = (function() {
                     );
                     break;;
 
-                case 'watchSerie':
+                case 'playSerie':
                     break;
 
                 case 'pause':
