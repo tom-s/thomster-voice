@@ -45,7 +45,6 @@ cmdProcessor = (function() {
                     );
                     break;
                 case 'weather':
-                    console.log("params", params);
                     var location = _.get(_.find(params, {key: 'location'}), '[0]');
                     var datetime = _.get(_.find(params, {key: 'datetime'}), '[0]');
                     weatherCmd.get(location, datetime).then(
@@ -93,10 +92,10 @@ cmdProcessor = (function() {
                     break;
 
                 case 'playMovie':
-                    var movieName = _.get(_.find(params, {key: 'movieName'}), '.values[0]');
-                    console.log("moviename", movieName);
+                    var movieName = _.get(_.find(params, {key: 'search_query'}), '.values[0]');
+                    console.log("params", params, movieName);
                     movieCmd.playMovie(movieName).then(
-                        function success(response) {
+                        function success() {
                             utils.speak("Playing movie").then(function() {
                                 deferred.resolve();
                             });

@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="98b8e098-25cc-455a-9ebf-f22bddeac4eb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmdProcessor.js" afterPath="$PROJECT_DIR$/cmdProcessor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
     </list>
     <ignored path="thomster-voice.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,8 +39,8 @@
       <file leaf-file-name="cmdProcessor.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cmdProcessor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5118644">
-              <caret line="96" column="56" selection-start-line="96" selection-start-column="56" selection-end-line="96" selection-end-column="56" />
+            <state vertical-scroll-proportion="0.42142856">
+              <caret line="97" column="41" selection-start-line="97" selection-start-column="41" selection-end-line="97" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -700,8 +699,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmdProcessor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5118644">
-          <caret line="96" column="56" selection-start-line="96" selection-start-column="56" selection-end-line="96" selection-end-column="56" />
+        <state vertical-scroll-proportion="0.42142856">
+          <caret line="97" column="41" selection-start-line="97" selection-start-column="41" selection-end-line="97" selection-end-column="41" />
           <folding />
         </state>
       </provider>
