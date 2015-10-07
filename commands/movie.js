@@ -33,14 +33,17 @@ var VIDEO_EXTENSIONS = [
 var movie = (function() {
 
     function _startKodi() {
+        console.log("start kodi");
         var deferred = Q.defer();
         // Check if kodi is running
         var cmd = "ps cax | grep chrome | grep -o '^[ ]*[0-9]*'";
         exec(cmd, function(error, out, stderr) {
             if(out) {
+                console.log("already runnning");
                 // already running
                 deferred.resolve();
             } else {
+                console.log("start kodi");
                 var cmd = "startkodi %u";
                 exec(cmd, function(error, out, stderr) {
                     if(error) {
@@ -93,6 +96,7 @@ var movie = (function() {
 
     function _openFile(file) {
         _startKodi().then(function() {
+            console.log("OPEN FILE");
             var url = 'http://192.168.0.1/jsonrpc?request={"jsonrpc":"2.0","id":"1","method":"Player.Open","params":{"item":{"file":"' + file + '"}}}'
             request(url, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
@@ -175,13 +179,13 @@ var movie = (function() {
     }
 
     return {
-        playMovie: function(args) {
+        playMovie: function(movieName) {
             console.log('try to find movie with args', args);
 
             var deferred = Q.defer();
 
             // Format args
-            var args = _formatArgs(args);
+            var args = movieName.split(' ');
             var videoExtension = '*' + VIDEO_EXTENSIONS.join('|')
             var pattern = FILES + '**/' + args.join('*') + '*' + videoExtension;
             console.log("pattern", pattern);

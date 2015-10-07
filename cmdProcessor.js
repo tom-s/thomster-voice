@@ -93,7 +93,6 @@ cmdProcessor = (function() {
 
                 case 'playMovie':
                     var movieName = _.get(_.find(params, {key: 'search_query'}), '.values[0]');
-                    console.log("params", params, movieName);
                     movieCmd.playMovie(movieName).then(
                         function success() {
                             utils.speak("Playing movie").then(function() {

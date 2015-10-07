@@ -1,16 +1,9 @@
+- essayer sans le filtre du bruit pour voir si la reconnaissance fonctionne mieux
 - lancer kodi si il n'est pas lancé avant de lancer un film
 - si il lancé, maximize
-
-# Faire commandes reconnaissance vocale
----- lundi
+- faire un mode pause pour qu'elle ne se déclenche pas pendant un film
+(faire un demon qui regarde si kodi est lancé ?)
 - faire fonctionenr getMovie
--> créer une intent pour les séries
--> créer une intent pour les films
---- mardi
 - faire une intent play some music
--> communique avec mon PC ou pas ?
--> faire commandes : "music please"
----- mercredi
 - faire le forecast
 - faire une refacto de wit.js
----- bonus
