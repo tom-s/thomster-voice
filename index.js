@@ -165,10 +165,3 @@ if(ipAddress !== '192.168.1.20') {
 }
 
 _sleep(true);
-
-/*
-// testing
-var windowManager = require('./utils/windowManager.js');
-windowManager.getWindowId('Guake').then(function success(id) {
-    console.log("id", id);
-});*/

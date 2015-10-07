@@ -7,6 +7,7 @@ var soundEx = natural.SoundEx;
 var exec = require('child_process').exec;
 var _ = require('lodash');
 var Q = require('q');
+var windowManager = require('../utils/windowManager.js');
 
 // CONF
 var FILES = '/home/pi/share/';
@@ -15,8 +16,6 @@ var VIDEO_EXTENSIONS = [
     '.avi',
     '.bdmv',
     '.divx',
-    '.flv',
-    '.ifo',
     '.m2ts',
     '.m4v',
     '.mkv',
@@ -31,10 +30,31 @@ var VIDEO_EXTENSIONS = [
 ];
 
 
-var windowManager = (function() {
+var movie = (function() {
+
+    function _startKodi() {
+        var deferred = Q.defer();
+        // Check if kodi is running
+        var cmd = "ps cax | grep chrome | grep -o '^[ ]*[0-9]*'";
+        exec(cmd, function(error, out, stderr) {
+            if(out) {
+                // already running
+                deferred.resolve();
+            } else {
+                var cmd = "startkodi %u";
+                exec(cmd, function(error, out, stderr) {
+                    if(error) {
+                        deferred.reject();
+                    } else {
+                        deferred.resolve();
+                    }
+                });
+            }
+        });
+        return deferred.promise;
+    }
 
     function _searchSimilarSoundingFile(search) {
-        var file = null;
         var similarSoundingFiles = [];
 
         // Retrieve list of all movies
@@ -49,7 +69,7 @@ var windowManager = (function() {
         // Select movies which sound like
         _.forEach(files, function(file) {
             var fileName = file.substring(url.lastIndexOf('/')+1);
-            if(metaphone.compare(file, search)) {
+            if(metaphone.compare(fileName, search)) {
                 similarSoundingFiles.push(file);
             }
         });
@@ -72,15 +92,17 @@ var windowManager = (function() {
     }
 
     function _openFile(file) {
-        var url = 'http://192.168.0.1/jsonrpc?request={"jsonrpc":"2.0","id":"1","method":"Player.Open","params":{"item":{"file":"' + file + '"}}}'
-        request(url, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(body) // Show response
-                utils.speak("Opening movie");
-            } else {
-                console.log('an error occured', error, response);
-                utils.speak("Sorry, I can't open the movie");
-            }
+        _startKodi().then(function() {
+            var url = 'http://192.168.0.1/jsonrpc?request={"jsonrpc":"2.0","id":"1","method":"Player.Open","params":{"item":{"file":"' + file + '"}}}'
+            request(url, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body) // Show response
+                    utils.speak("Opening movie");
+                } else {
+                    console.log('an error occured', error, response);
+                    utils.speak("Sorry, I can't open the movie");
+                }
+            })
         })
     }
 
@@ -156,6 +178,49 @@ var windowManager = (function() {
         playMovie: function(args) {
             console.log('try to find movie with args', args);
 
+            var deferred = Q.defer();
+
+            // Format args
+            var args = _formatArgs(args);
+            var videoExtension = '*' + VIDEO_EXTENSIONS.join('|')
+            var pattern = FILES + '**/' + args.join('*') + '*' + videoExtension;
+            console.log("pattern", pattern);
+
+            var files = glob.sync([
+                pattern      //include all     files/
+            ], {nocase:true});
+
+            console.log("files", files);
+
+            switch(files.length) {
+                case 0:
+                    // Try a last resort solution, finding a name by the way it sounds !
+                    var file = _searchSimilarSoundingFile(args.join(' '), VIDEO_EXTENSIONS);
+                    if(file) {
+                        return _openFile(file);
+                    } else {
+                        deferred.reject();
+                    }
+                    break;
+                case 1:
+                    var file = files[0];
+                    return _openFile(file);
+                    break;
+                default:
+                    // Pick the best file
+                    var fileStr = FILES + args.join(' ') + videoExtension;
+                    var file = _searchBestFile(files, fileStr);
+                    if(file) {
+                        return _openFile(file);
+                    } else {
+                       deferred.reject();
+                    }
+            }
+            return deferred.promise;
+        },
+        playSerie: function(args) {
+            console.log('try to find movie with args', args);
+
             // Format args
             var args = _formatArgs(args);
             var videoExtension = '*' + VIDEO_EXTENSIONS.join('|')
@@ -199,4 +264,4 @@ var windowManager = (function() {
 })();
 
 
-module.exports = windowManager;
+module.exports = movie;

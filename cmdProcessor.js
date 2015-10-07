@@ -6,7 +6,9 @@ var Q = require('q');
 var weatherCmd = require('./commands/weather.js');
 var timeCmd = require('./commands/time.js');
 var wolframCmd = require('./commands/wolfram.js');
+var movieCmd = require('./commands/movie.js');
 
+// CONF
 var MIN_CONFIDENCE_THRESHOLD = 0.4;
 
 cmdProcessor = (function() {
@@ -90,7 +92,23 @@ cmdProcessor = (function() {
                     );
                     break;
 
-                case 'watch':
+                case 'watchMovie':
+                    var movieName = _.get(_.find(params, {key: 'movieName'}), '.values[0]');
+                    movieCmd.playMovie(movieName).then(
+                        function success(response) {
+                            utils.speak("Playing movie").then(function() {
+                                deferred.resolve();
+                            });
+                        },
+                        function error() {
+                            utils.speak("Sorry, I can't get find the movie " + movieName).then(function() {
+                                deferred.reject();
+                            });
+                        }
+                    );
+                    break;;
+
+                case 'watchSerie':
                     break;
 
                 case 'pause':
