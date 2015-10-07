@@ -118,7 +118,7 @@ cmdProcessor = (function() {
                     break;
 
                 default :
-                    utils.speak("Sorry, I don't know how to that");
+                    deferred.reject();
             }
             return deferred.promise;
         }
