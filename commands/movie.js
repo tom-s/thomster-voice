@@ -180,7 +180,7 @@ var movie = (function() {
 
     return {
         playMovie: function(movieName) {
-            console.log('try to find movie with args', args);
+            console.log('try to find movieby the name of', movieName);
 
             var deferred = Q.defer();
 
@@ -199,6 +199,7 @@ var movie = (function() {
             switch(files.length) {
                 case 0:
                     // Try a last resort solution, finding a name by the way it sounds !
+                    console.log('search similar sounding file');
                     var file = _searchSimilarSoundingFile(args.join(' '), VIDEO_EXTENSIONS);
                     if(file) {
                         return _openFile(file);
@@ -207,6 +208,7 @@ var movie = (function() {
                     }
                     break;
                 case 1:
+                    console.log("movie found !");
                     var file = files[0];
                     return _openFile(file);
                     break;
