@@ -5,17 +5,12 @@ var cmdProcessor = require('./cmdProcessor.js');
 var intentFinder = require('./intentFinder.js');
 var Q = require('q');
 var ip = require('ip');
+var clapDetector = require('./utils/clapDetector.js');
 
 var DEV_IP = '192.168.0.10';
-var DETECTION_PERCENTAGE_START = '10%';
-var DETECTION_PERCENTAGE_END = '10%';
-var AUDIO_SOURCE = 'hw:1,0';
-var NOISE_PROFILE = 'noise.prof';
-var SOUND_FILE = "input.wav";
-var SOUND_FILE_CLEAN  = "input-clean.wav";
+
+
 var LISTEN_MAX_TRIALS = 2;
-var CLAP_AMPLITUDE_THRESHOLD=0.7;
-var CLAP_ENERGY_THRESHOLD=0.3;
 
 var step = 0; // wake up step
 var sleepTiming;
@@ -48,87 +43,12 @@ function _analyze() {
     );
 }
 
-function _checkFile() {
-    var deferred = Q.defer();
-    // Check that file is the right duration (to filter out noises)
-    var cmd = "sox " + SOUND_FILE_CLEAN + " -n stat 2>&1"; //| sed -n 's#^Length (seconds):[^0-9]*\\([0-9.]*\\)$#\\1#p'
-    var regExDuration = /Length[\s]+\(seconds\):[\s]+([0-9.]+)/;
-    var regExRms = /RMS[\s]+amplitude:[\s]+([0-9.]+)/;
-    var regExMax = /Maximum[\s]+amplitude:[\s]+([0-9.]+)/;
-    exec(cmd, function(error, out, stderr) {
-        // Is this a clap of hand ?
-        console.log('debug', error, out, stderr);
-        var durationData = out.match(regExDuration);
-        var duration = parseFloat(durationData[1]);
-        var rmsData = out.match(regExRms);
-        var rms = parseFloat(rmsData[1]);
-        var maxData = out.match(regExMax);
-        var max = parseFloat(maxData[1]);
-
-        // Does it have the characteristics of a clap
-        if(duration < 1 && max > CLAP_AMPLITUDE_THRESHOLD && rms < CLAP_ENERGY_THRESHOLD){
-            console.log("clap !");
-            var res = (step >= 1) ? true : false;
-            step = (res) ?  0 : step + 1;
-            deferred.resolve(res);
-        } else {
-            console.log("not a clap", max, rms);
-            deferred.resolve(false);
-        }
-
-    });
-    return deferred.promise;
-}
-
-/* Wait for a clap of hand to wake up */
-function _sleep(resetStep) {
-    console.log("------ SLEEP --------");
-    // Step step
-    if(resetStep) {
-        step  = 0;
-    }
-
-    // Listen for clap
-    var cmd = 'sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 '  + DETECTION_PERCENTAGE_START + ' 1 0.1 ' + DETECTION_PERCENTAGE_END;
-    console.log("sleep", cmd);
-    var child = exec(cmd);
-    child.on('close', function(code) {
-
-        // Check if step should be reset
-        var timeData = (sleepTiming) ? process.hrtime(sleepTiming) : null;
-        var elapsedTime = parseFloat(_.get(timeData, '[0]')); // seconds only
-        console.log("elapsed time", timeData, elapsedTime);
-        if(!isNaN(elapsedTime) && elapsedTime > 2) {
-            step = 0;
-        }
-
-        // Clean and check file and take action
-        _cleanFile().then(function() {
-            _checkFile().then(function(wakeUp) {
-                console.log("wake up ? ", wakeUp, step);
-                if(wakeUp) {
-                    utils.speak("Yes ?").then(function() {
-                        _listen();
-                    })
-                } else {
-                    console.log("set sleep timing !");
-                    sleepTiming = process.hrtime();
-                    _sleep(); // carry on sleeping
-                }
-            });
-        });
-
-    });
-}
-
 /* Listen for a command */
 function _listen(nb) {
     nb = (_.isUndefined(nb)) ? 1 : nb;
     var cmd = 'timeout --signal=SIGINT 5 sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 ' + DETECTION_PERCENTAGE_START + ' 1 1.0 ' + DETECTION_PERCENTAGE_END;
-    console.log("listen", cmd);
     var child = exec(cmd);
     child.on('close', function(code) {
-        console.log("close with code", code);
         if(code === 0) {
             _cleanFile().then(function() {
                 _analyze();
@@ -148,27 +68,32 @@ function _listen(nb) {
     });
 }
 
-function  _cleanFile() {
-    var deferred = Q.defer();
-    // Clean noise
-    var cmd = 'sox ' + SOUND_FILE + ' ' + SOUND_FILE_CLEAN + ' noisered ' + NOISE_PROFILE + ' 0.21';
-    console.log("clean", cmd);
-    exec(cmd, function(error, duration, stderr) {
-        deferred.resolve();
-    });
-    return deferred.promise;
-}
-
 /* Init */
 var ipAddress = ip.address();
+var clapConfig = {
+    CLEANING: {
+        perform: true
+    }
+};
+
+// Override config for raspberry
 if(ipAddress !== DEV_IP) {
     console.log("raspberry config detected");
-    AUDIO_SOURCE = 'hw:0,0';
-    NOISE_PROFILE = 'noise-rasp.prof';
-    //DETECTION_PERCENTAGE_START = '5%';
-    //DETECTION_PERCENTAGE_END = '5%';
-} else {
-    console.log("dev config detected");
+    clapConfig.AUDIO_SOURCE = 'hw:0,0';
+    //clapConfig.NOISE_PROFILE = 'noise-rasp.prof';
+    clapConfig.DETECTION_PERCENTAGE_START = '5%';
+    clapConfig.DETECTION_PERCENTAGE_END = '5%';
 }
 
-_sleep(true);
+clapDetector.start(clapConfig);
+
+// Register to one clap
+clapDetector.onClap(function() {
+    //console.log('CLAP CALLBACK ! ');
+}.bind(this));
+
+// Register to multiple claps
+clapDetector.onClaps(3, 3000, function(delay) {
+    console.log("3 claps in ", delay, "ms");
+}.bind(this));
+
