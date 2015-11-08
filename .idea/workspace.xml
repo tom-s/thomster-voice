@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/utils/clapDetector.js" line="65" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="98b8e098-25cc-455a-9ebf-f22bddeac4eb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils/commandListener.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/input.wav" afterPath="$PROJECT_DIR$/input.wav" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/clapDetector.js" afterPath="$PROJECT_DIR$/utils/clapDetector.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/todo.txt" afterPath="$PROJECT_DIR$/todo.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="thomster-voice.iws" />
@@ -28,8 +33,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.99642855">
-              <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.58214283">
+              <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -48,8 +53,18 @@
       <file leaf-file-name="clapDetector.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/clapDetector.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.0">
-              <caret line="10" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="162" selection-end-column="30" />
+            <state vertical-scroll-proportion="-6.6">
+              <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="todo.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/todo.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -105,16 +120,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="windowManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/windowManager.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="19" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="movie.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/commands/movie.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -148,13 +153,13 @@
         <option value="$PROJECT_DIR$/commands/time.js" />
         <option value="$PROJECT_DIR$/commands/weather.js" />
         <option value="$PROJECT_DIR$/utils/windowManager.js" />
-        <option value="$PROJECT_DIR$/todo.txt" />
         <option value="$PROJECT_DIR$/cmdProcessor.js" />
         <option value="$PROJECT_DIR$/commands/movie.js" />
         <option value="$PROJECT_DIR$/clapDetector.js" />
-        <option value="$PROJECT_DIR$/utils/clapDetector.js" />
         <option value="$PROJECT_DIR$/utils/commandListener.js" />
+        <option value="$PROJECT_DIR$/todo.txt" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/utils/clapDetector.js" />
       </list>
     </option>
   </component>
@@ -663,14 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/todo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/windowManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -727,10 +724,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/clapDetector.js">
+    <entry file="file://$PROJECT_DIR$/todo.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0">
-          <caret line="10" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="162" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -743,10 +740,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/utils/clapDetector.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.6">
+          <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.99642855">
-          <caret line="31" column="43" selection-start-line="31" selection-start-column="43" selection-end-line="31" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.58214283">
+          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
           <folding />
         </state>
       </provider>

@@ -33,7 +33,7 @@ clapDetector.onClap(function() {
 }.bind(this));
 
 // Register to multiple claps
-clapDetector.onClaps(3, 3000, function(delay) {
+clapDetector.onClaps(3, 2000, function(delay) {
     console.log("3 claps in ", delay, "ms");
     utils.speak('Yes ?', function() {
         console.log("listen !");

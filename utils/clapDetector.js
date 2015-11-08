@@ -15,7 +15,8 @@ var clapDetector = (function() {
         SOUND_FILE : "input.wav", // input file
         SOUND_FILE_CLEAN  : "input-clean.wav",
         CLAP_AMPLITUDE_THRESHOLD: 0.7,
-        CLAP_ENERGY_THRESHOLD: 0.3
+        CLAP_ENERGY_THRESHOLD: 0.3,
+        MAX_HISTORY_LENGTH: 10 // no need to maintain big history
     };
 
     var paused = false;
@@ -47,6 +48,10 @@ var clapDetector = (function() {
 
     /* Check if multiple claps have been done */
     function _handleMultipleClaps() {
+        // Clean history
+        clapsHistory = _.takeRight(clapsHistory, CONFIG.MAX_HISTORY_LENGTH); // no need to maintain a big history
+
+        // If callback registered, handle them
         if(EVENTS.multipleClaps.length > 0) {
             _.forEach(EVENTS.multipleClaps,  function(cbProps) {
                 _handleMultipleClapsEvent(cbProps);
@@ -58,7 +63,7 @@ var clapDetector = (function() {
     function _listen() {
         console.log("------ Listen for noise --------");
         // Listen for sound
-        var cmd = 'sox -t alsa ' + CONFIG.AUDIO_SOURCE + ' ' + CONFIG.SOUND_FILE + ' silence 1 0.1 '  + CONFIG.DETECTION_PERCENTAGE_START + ' 1 0.1 ' + CONFIG.DETECTION_PERCENTAGE_END;
+        var cmd = 'sox -t alsa ' + CONFIG.AUDIO_SOURCE + ' ' + CONFIG.SOUND_FILE + ' silence 1 0.0001 '  + CONFIG.DETECTION_PERCENTAGE_START + ' 1 0.1 ' + CONFIG.DETECTION_PERCENTAGE_END;
         var child = exec(cmd);
         child.on('close', function() {
             if(paused) {
