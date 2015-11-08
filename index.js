@@ -6,9 +6,10 @@ var intentFinder = require('./intentFinder.js');
 var Q = require('q');
 var ip = require('ip');
 
-var DETECTION_PERCENTAGE_START = '5%';
-var DETECTION_PERCENTAGE_END = '5%';
-var AUDIO_SOURCE = 'default';
+var DEV_IP = '192.168.0.10';
+var DETECTION_PERCENTAGE_START = '10%';
+var DETECTION_PERCENTAGE_END = '10%';
+var AUDIO_SOURCE = 'hw:1,0';
 var NOISE_PROFILE = 'noise.prof';
 var SOUND_FILE = "input.wav";
 var SOUND_FILE_CLEAN  = "input-clean.wav";
@@ -56,6 +57,7 @@ function _checkFile() {
     var regExMax = /Maximum[\s]+amplitude:[\s]+([0-9.]+)/;
     exec(cmd, function(error, out, stderr) {
         // Is this a clap of hand ?
+        console.log('debug', error, out, stderr);
         var durationData = out.match(regExDuration);
         var duration = parseFloat(durationData[1]);
         var rmsData = out.match(regExRms);
@@ -159,12 +161,14 @@ function  _cleanFile() {
 
 /* Init */
 var ipAddress = ip.address();
-if(ipAddress !== '192.168.1.20') {
+if(ipAddress !== DEV_IP) {
     console.log("raspberry config detected");
     AUDIO_SOURCE = 'hw:0,0';
     NOISE_PROFILE = 'noise-rasp.prof';
     //DETECTION_PERCENTAGE_START = '5%';
     //DETECTION_PERCENTAGE_END = '5%';
+} else {
+    console.log("dev config detected");
 }
 
 _sleep(true);
