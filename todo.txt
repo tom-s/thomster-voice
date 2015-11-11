@@ -1,6 +1,5 @@
-- faire package npm pour la détection de clap
-- ajouter readme qui explique les dépendances et la config
-- ajouter tests unitaires
+- mettre les input.wav dans un dossier à part qu eje supprime
+
 
 - essayer sans le filtre du bruit pour voir si la reconnaissance fonctionne mieux
 - lancer kodi si il n'est pas lancé avant de lancer un film
