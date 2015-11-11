@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var wit = require('./wit.js');
-var utils = require('./utils.js');
+var utils = require('../utils.js');
 var fs = require('fs');
 var ACCESS_TOKEN = "U3XYEWNL7M27YB76EJWHIXNVOAT5KZN4";
 var Q = require('q');

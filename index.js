@@ -2,7 +2,8 @@ var _ = require('lodash');
 var utils = require('./utils.js');
 var Q = require('q');
 var ip = require('ip');
-var clapDetector = require('./utils/clapDetector.js');
+var clapDetector = require('clap-detector');
+var orderListener = require('./utils/orderListener.js');
 
 var DEV_IP = '192.168.0.10';
 
@@ -13,6 +14,7 @@ var clapConfig = {
         perform: true
     }
 };
+var orderConfig = {};
 
 // Override config for raspberry
 if(ipAddress !== DEV_IP) {
@@ -23,20 +25,25 @@ if(ipAddress !== DEV_IP) {
     clapConfig.DETECTION_PERCENTAGE_END = '5%';
 }
 
+/* Prepare order listener */
+orderListener.initialize(orderConfig);
 
 /* Start clap detection */
 clapDetector.start(clapConfig);
-
-// Register to one clap
-clapDetector.onClap(function() {
-    //console.log('a clap has been recorded ');
-}.bind(this));
 
 // Register to multiple claps
 clapDetector.onClaps(3, 2000, function(delay) {
     console.log("3 claps in ", delay, "ms");
     utils.speak('Yes ?', function() {
-        console.log("listen !");
+        clapDetector.pause();
+        orderListener.listen(function() {
+            clapDetector.resume();
+        });
     })
 }.bind(this));
 
+/*
+ // Register to one clap
+ clapDetector.onClap(function() {
+ //console.log('a clap has been recorded ');
+ }.bind(this));*/

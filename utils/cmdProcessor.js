@@ -1,12 +1,12 @@
 var _ = require('lodash');
-var utils = require('./utils.js');
+var utils = require('../utils.js');
 var Q = require('q');
 
 // Commands
-var weatherCmd = require('./commands/weather.js');
-var timeCmd = require('./commands/time.js');
-var wolframCmd = require('./commands/wolfram.js');
-var movieCmd = require('./commands/movie.js');
+var weatherCmd = require('../commands/weather.js');
+var timeCmd = require('../commands/time.js');
+var wolframCmd = require('../commands/wolfram.js');
+var movieCmd = require('../commands/movie.js');
 
 // CONF
 var MIN_CONFIDENCE_THRESHOLD = 0.4;

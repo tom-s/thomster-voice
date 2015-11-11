@@ -4,6 +4,7 @@
   "description": "",
   "main": "command.js",
   "dependencies": {
+    "clap-detector": "^0.1.0",
     "glob-all": "^3.0.1",
     "ip": "^1.0.1",
     "lodash": "^3.10.1",

@@ -7,13 +7,22 @@ var intentFinder = require('./intentFinder.js');
 var orderListener = (function() {
     /* DEFAULT CONFIG */
     var CONFIG = {
-
+        AUDIO_SOURCE: 'hw:1,0',
+        DETECTION_PERCENTAGE_START : '5%',
+        DETECTION_PERCENTAGE_END: '5%',
+        CLEANING: {
+            PERFORM: false, // requires a noise profile
+            NOISE_PROFILE: 'noise.prof'
+        },
+        SOUND_FILE : "input.wav", // input file
+        SOUND_FILE_CLEAN  : "input-clean.wav",
+        LISTEN_MAX_TRIALS : 2
     };
 
-    var LISTEN_MAX_TRIALS = 2;
+    var finishedCb = null;
 
     function _analyze() {
-        intentFinder.get(SOUND_FILE_CLEAN).then(
+        intentFinder.get(CONFIG.SOUND_FILE_CLEAN).then(
             function success(res) {
                 var intentParams = _.map(res.params, function(param, key) {
                     return {
@@ -43,7 +52,7 @@ var orderListener = (function() {
     /* Listen for a command */
     function _listen(nb) {
         nb = (_.isUndefined(nb)) ? 1 : nb;
-        var cmd = 'timeout --signal=SIGINT 5 sox -t alsa ' + AUDIO_SOURCE + ' ' + SOUND_FILE + ' silence 1 0.1 ' + DETECTION_PERCENTAGE_START + ' 1 1.0 ' + DETECTION_PERCENTAGE_END;
+        var cmd = 'timeout --signal=SIGINT 5 sox -t alsa ' + CONFIG.AUDIO_SOURCE + ' ' + CONFIG.SOUND_FILE + ' silence 1 0.1 ' + CONFIG.DETECTION_PERCENTAGE_START + ' 1 1.0 ' + CONFIG.DETECTION_PERCENTAGE_END;
         var child = exec(cmd);
         child.on('close', function(code) {
             if(code === 0) {
@@ -54,7 +63,9 @@ var orderListener = (function() {
                 // This is a timeout
                 if(nb === LISTEN_MAX_TRIALS) {
                     utils.speak("Nevermind. Good bye !").then(function() {
-                        _sleep(true);
+                        if(finishedCb) {
+                            finishedCb();
+                        }
                     });
                 } else {
                     utils.speak("Repeat please").then(function() {
@@ -68,7 +79,16 @@ var orderListener = (function() {
 
 
     return {
+        initialize: function (props) {
+            if(props) {
+                _.assign(CONFIG, props);
+            }
+        },
 
+        listen: function(cb) {
+            finishedCb = cb;
+            _listen();
+        }
     };
 })();
 
