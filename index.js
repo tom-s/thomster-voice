@@ -45,6 +45,7 @@ clapDetector.onClaps(3, 2000, function(delay) {
     console.log("3 claps in ", delay, "ms");
     speaker.speak('Yes ?').then(function() {
         clapDetector.pause();
+        console.log("listen for order");
         orderListener.listen(function() {
             clapDetector.resume();
         });
