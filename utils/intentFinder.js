@@ -1,11 +1,10 @@
 var _ = require('lodash');
 var wit = require('./wit.js');
-var utils = require('../utils.js');
 var fs = require('fs');
-var ACCESS_TOKEN = "U3XYEWNL7M27YB76EJWHIXNVOAT5KZN4";
 var Q = require('q');
 
 var intentFinder = (function() {
+    var ACCESS_TOKEN = "U3XYEWNL7M27YB76EJWHIXNVOAT5KZN4";
 
     return {
         get: function(soundFile) {
@@ -14,7 +13,7 @@ var intentFinder = (function() {
             var stream = fs.createReadStream(soundFile);
             wit.captureSpeechIntent(ACCESS_TOKEN, stream, "audio/wav", function (err, res) {
                 console.log('res', res);
-                if (err) utils.speak("An error occured");
+                if (err) speaker.speak("An error occured");
                 var res = _.get(res, '.outcomes[0]');
                 if(res) {
                     deferred.resolve({

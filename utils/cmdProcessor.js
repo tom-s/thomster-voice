@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var utils = require('../utils.js');
+var speaker = require('pico-speaker');
 var Q = require('q');
 
 // Commands
@@ -21,24 +21,24 @@ cmdProcessor = (function() {
             // Call appropriate function for given command
             switch(cmd) {
                 case 'shutUp':
-                    utils.shutUp();
-                    utils.speak("OK").then(function() {
+                    speaker.shutUp();
+                    speaker.speak("OK").then(function() {
                         deferred.resolve();
                     });
                     break;
                 case 'repeat':
-                    utils.repeat();
+                    speaker.repeat();
                     break;
                 case 'answer':
                     var query = _.get(_.find(params, {key: 'search_query'}), '.values[0]');
                     wolframCmd.getAnswer(query).then(
                         function success(response) {
-                            utils.speak(response).then(function() {
+                            speaker.speak(response).then(function() {
                                 deferred.resolve();
                             });
                         },
                         function error() {
-                            utils.speak("Sorry, I can't get the answer to your question").then(function() {
+                            speaker.speak("Sorry, I can't get the answer to your question").then(function() {
                                 deferred.reject();
                             });
                         }
@@ -49,12 +49,12 @@ cmdProcessor = (function() {
                     var datetime = _.get(_.find(params, {key: 'datetime'}), '[0]');
                     weatherCmd.get(location, datetime).then(
                         function success(response) {
-                            utils.speak(response).then(function() {
+                            speaker.speak(response).then(function() {
                                 deferred.resolve();
                             });
                         },
                         function error() {
-                            utils.speak("Sorry, I can't get the weather").then(function() {
+                            speaker.speak("Sorry, I can't get the weather").then(function() {
                                 deferred.reject();
                             });
                         }
@@ -64,12 +64,12 @@ cmdProcessor = (function() {
                     var location = _.get(_.find(params, {key: 'location'}), '.values[0]');
                     timeCmd.getDay(location).then(
                         function success(response) {
-                            utils.speak("Today is : " + response).then(function() {
+                            speaker.speak("Today is : " + response).then(function() {
                                 deferred.resolve();
                             });
                         },
                         function error() {
-                            utils.speak("Sorry, I can't get the time").then(function() {
+                            speaker.speak("Sorry, I can't get the time").then(function() {
                                 deferred.reject();
                             });
                         }
@@ -79,12 +79,12 @@ cmdProcessor = (function() {
                     var location = _.get(_.find(params, {key: 'location'}), '.values[0]');
                     timeCmd.getTime(location).then(
                         function success(response) {
-                            utils.speak("The time is : " + response).then(function() {
+                            speaker.speak("The time is : " + response).then(function() {
                                 deferred.resolve();
                             });
                         },
                         function error() {
-                            utils.speak("Sorry, I can't get the time").then(function() {
+                            speaker.speak("Sorry, I can't get the time").then(function() {
                                 deferred.reject();
                             });
                         }
@@ -95,12 +95,12 @@ cmdProcessor = (function() {
                     var movieName = _.get(_.find(params, {key: 'search_query'}), '.values[0]');
                     movieCmd.playMovie(movieName).then(
                         function success() {
-                            utils.speak("Playing movie").then(function() {
+                            speaker.speak("Playing movie").then(function() {
                                 deferred.resolve();
                             });
                         },
                         function error() {
-                            utils.speak("Sorry, I can't get find the movie " + movieName).then(function() {
+                            speaker.speak("Sorry, I can't get find the movie " + movieName).then(function() {
                                 deferred.reject();
                             });
                         }

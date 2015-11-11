@@ -36,7 +36,9 @@ var orderListener = (function() {
                     _sleep(true);
                 }, function error() {
                     utils.speak("Sorry, I don't know how to that").then(function() {
-                        _sleep(true);
+                        if(finishedCb) {
+                            finishedCb();
+                        }
                     })
 
                 });
@@ -79,7 +81,7 @@ var orderListener = (function() {
 
 
     return {
-        initialize: function (props) {
+        init: function (props) {
             if(props) {
                 _.assign(CONFIG, props);
             }

@@ -1,20 +1,21 @@
 var _ = require('lodash');
-var utils = require('./utils.js');
 var Q = require('q');
 var ip = require('ip');
 var clapDetector = require('clap-detector');
+var speaker = require('pico-speaker');
 var orderListener = require('./utils/orderListener.js');
 
-var DEV_IP = '192.168.0.10';
 
-/* Init */
+/* Config */
+var DEV_IP = '192.168.0.10';
 var ipAddress = ip.address();
 var clapConfig = {
     CLEANING: {
-        perform: true
+        PERFORM: false
     }
 };
 var orderConfig = {};
+var speakerConfig = {};
 
 // Override config for raspberry
 if(ipAddress !== DEV_IP) {
@@ -23,10 +24,18 @@ if(ipAddress !== DEV_IP) {
     //clapConfig.NOISE_PROFILE = 'noise-rasp.prof';
     clapConfig.DETECTION_PERCENTAGE_START = '5%';
     clapConfig.DETECTION_PERCENTAGE_END = '5%';
+} else {
+    speakerConfig.AUDIO_DEVICE = 'default:CARD=PCH';
 }
 
-/* Prepare order listener */
-orderListener.initialize(orderConfig);
+
+/* Initalization */
+
+/* Initialize speaker */
+speaker.init(speakerConfig);
+
+/* Initialize order listener */
+orderListener.init(orderConfig);
 
 /* Start clap detection */
 clapDetector.start(clapConfig);
@@ -34,7 +43,7 @@ clapDetector.start(clapConfig);
 // Register to multiple claps
 clapDetector.onClaps(3, 2000, function(delay) {
     console.log("3 claps in ", delay, "ms");
-    utils.speak('Yes ?', function() {
+    speaker.speak('Yes ?').then(function() {
         clapDetector.pause();
         orderListener.listen(function() {
             clapDetector.resume();
@@ -42,8 +51,8 @@ clapDetector.onClaps(3, 2000, function(delay) {
     })
 }.bind(this));
 
-/*
+
  // Register to one clap
  clapDetector.onClap(function() {
- //console.log('a clap has been recorded ');
- }.bind(this));*/
+    console.log('a clap has been recorded ');
+ }.bind(this));

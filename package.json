@@ -11,7 +11,7 @@
     "moment": "^2.10.6",
     "moment-timezone": "^0.4.0",
     "natural": "^0.2.1",
-    "node-record-lpcm16": "^0.1.4",
+    "pico-speaker": "0.0.1",
     "q": "^1.4.1",
     "request": "^2.64.0",
     "text2num": "0.0.1"
