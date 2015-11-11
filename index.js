@@ -22,10 +22,12 @@ if(ipAddress !== DEV_IP) {
     console.log("raspberry config detected");
     clapConfig.AUDIO_SOURCE = 'hw:0,0';
     //clapConfig.NOISE_PROFILE = 'noise-rasp.prof';
-    clapConfig.DETECTION_PERCENTAGE_START = '5%';
-    clapConfig.DETECTION_PERCENTAGE_END = '5%';
+    clapConfig.DETECTION_PERCENTAGE_START = '10%';
+    clapConfig.DETECTION_PERCENTAGE_END = '10%';
 } else {
     speakerConfig.AUDIO_DEVICE = 'default:CARD=PCH';
+    clapConfig.DETECTION_PERCENTAGE_START = '20%';
+    clapConfig.DETECTION_PERCENTAGE_END = '20%';
 }
 
 

@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var Q = require('q');
 var exec = require('child_process').exec;
+var speaker = require('pico-speaker');
 var cmdProcessor = require('./cmdProcessor.js');
 var intentFinder = require('./intentFinder.js');
 
@@ -8,8 +9,8 @@ var orderListener = (function() {
     /* DEFAULT CONFIG */
     var CONFIG = {
         AUDIO_SOURCE: 'hw:1,0',
-        DETECTION_PERCENTAGE_START : '5%',
-        DETECTION_PERCENTAGE_END: '5%',
+        DETECTION_PERCENTAGE_START : '20%',
+        DETECTION_PERCENTAGE_END: '20%',
         CLEANING: {
             PERFORM: false, // requires a noise profile
             NOISE_PROFILE: 'noise.prof'
@@ -35,7 +36,7 @@ var orderListener = (function() {
                 cmdProcessor.execute(res.intent, res.confidence, intentParams).then(function success() {
                     _sleep(true);
                 }, function error() {
-                    utils.speak("Sorry, I don't know how to that").then(function() {
+                    speaker.speak("Sorry, I don't know how to that").then(function() {
                         if(finishedCb) {
                             finishedCb();
                         }
@@ -44,7 +45,7 @@ var orderListener = (function() {
                 });
             },
             function error() {
-                utils.speak("Sorry I didn't get that, repeat please").then(function() {
+                speaker.speak("Sorry I didn't get that, repeat please").then(function() {
                     _listen();
                 })
             }
@@ -63,14 +64,14 @@ var orderListener = (function() {
                 });
             } else {
                 // This is a timeout
-                if(nb === LISTEN_MAX_TRIALS) {
-                    utils.speak("Nevermind. Good bye !").then(function() {
+                if(nb === CONFIG.LISTEN_MAX_TRIALS) {
+                    speaker.speak("Nevermind. Good bye !").then(function() {
                         if(finishedCb) {
                             finishedCb();
                         }
                     });
                 } else {
-                    utils.speak("Repeat please").then(function() {
+                    speaker.speak("Repeat please").then(function() {
                         _listen(++nb);
                     });
                 }
