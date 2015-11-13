@@ -1,5 +1,5 @@
 - mettre les input.wav dans un dossier à part qu eje supprime
-
+- faire fonctionner orderListener
 
 - essayer sans le filtre du bruit pour voir si la reconnaissance fonctionne mieux
 - lancer kodi si il n'est pas lancé avant de lancer un film
