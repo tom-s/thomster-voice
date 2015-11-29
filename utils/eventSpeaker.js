@@ -13,7 +13,6 @@ var EventSpeaker = (function() {
         },
 
         speak: function(text) {
-            console.log("speak", text);
             if(socket) socket.emit('speak', {text: text}); // emit an event
             return picoSpeaker.speak(text); // speak
         }

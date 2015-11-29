@@ -27,11 +27,16 @@ var speakerConfig = {};
 if(ipAddress !== DEV_IP) {
     console.log("raspberry config detected");
     clapConfig.AUDIO_SOURCE = 'hw:0,0';
+    orderConfig.AUDIO_SOURCE = 'hw:0,0';
     //clapConfig.NOISE_PROFILE = 'noise-rasp.prof';
     clapConfig.DETECTION_PERCENTAGE_START = '10%';
     clapConfig.DETECTION_PERCENTAGE_END = '10%';
 } else {
-    speakerConfig.AUDIO_DEVICE = 'plughw:1,0';
+    console.log("dev enviroment");
+    speakerConfig.AUDIO_DEVICE = 'plughw:1,0'; // speakers
+    clapConfig.AUDIO_SOURCE = 'plughw:3,0'; // webcam
+    orderConfig.AUDIO_SOURCE = 'plughw:3,0'; // webcam
+    //clapConfig.NOISE_PROFILE = 'noise-rasp.prof';
     clapConfig.DETECTION_PERCENTAGE_START = '20%';
     clapConfig.DETECTION_PERCENTAGE_END = '20%';
 }
@@ -43,13 +48,18 @@ if(ipAddress !== DEV_IP) {
 io.on('connection', function(socket){
     console.log('a user connected');
     ioSocket = socket;
-    socket.on('disconnect', function(){
+    ioSocket.on('disconnect', function(){
         console.log('user disconnected');
     });
 
+    // Set events
+    ioSocket.on('listen', function() {
+        _listen();
+    });
+
     // Update event speaker
-    eventSpeaker.setSocket(socket);
-    orderListener.setSocket(socket);
+    eventSpeaker.setSocket(ioSocket);
+    orderListener.setSocket(ioSocket);
 
 });
 
@@ -65,16 +75,19 @@ clapDetector.start(clapConfig);
 // Register to multiple claps
 clapDetector.onClaps(3, 2000, function(delay) {
     console.log("3 claps in ", delay, "ms");
+    _listen();
+}.bind(this));
 
+var _listen = function() {
     eventSpeaker.speak(TRANS.get('YES')).then(function() {
         clapDetector.pause();
-        console.log("listen for order");
+        ioSocket.emit('listening');
         orderListener.listen(function() {
+            ioSocket.emit('notListening');
             clapDetector.resume();
         });
     })
-}.bind(this));
-
+}
 
  // Register to one clap
  clapDetector.onClap(function() {

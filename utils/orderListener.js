@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var Q = require('q');
 var exec = require('child_process').exec;
-var eventSpeaker = require('pico-speaker');
+var eventSpeaker = require('./eventSpeaker.js');
 var cmdProcessor = require('./cmdProcessor.js');
 var ai = require('./ai.js');
 
@@ -11,7 +11,7 @@ var TRANS = require('./translations.js');
 var orderListener = (function() {
     /* DEFAULT CONFIG */
     var CONFIG = {
-        AUDIO_SOURCE: 'hw:1,0',
+        AUDIO_SOURCE: 'hw:1,0', // microphone
         DETECTION_PERCENTAGE_START : '20%',
         DETECTION_PERCENTAGE_END: '20%',
         CLEANING: {
@@ -92,9 +92,9 @@ var orderListener = (function() {
     function _listen(nb) {
         nb = (_.isUndefined(nb)) ? 1 : nb;
         var cmd = 'timeout --signal=SIGINT 5 sox -t alsa ' + CONFIG.AUDIO_SOURCE + ' ' + CONFIG.SOUND_FILE + ' silence 1 0.1 ' + CONFIG.DETECTION_PERCENTAGE_START + ' 1 1.0 ' + CONFIG.DETECTION_PERCENTAGE_END;
-        var child = exec(cmd);
-        child.on('close', function(code) {
-            if(code === 0) {
+        var child = exec(cmd, function(err, stdout, sterr) {
+            console.log("command finished", err, stdout, sterr);
+            if(!err) {
                 _cleanFile().then(function() {
                     _analyze();
                 });
@@ -113,6 +113,7 @@ var orderListener = (function() {
                 }
             }
         });
+
     }
 
 
