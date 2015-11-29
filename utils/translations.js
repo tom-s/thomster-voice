@@ -1,5 +1,6 @@
 var Translations = (function() {
-    return {
+    var lang = 'en';
+    var texts = {
         'YES': {
             en: "Yes ?",
             fr: "Oui ?"
@@ -15,6 +16,15 @@ var Translations = (function() {
         'NEVERMIND': {
             en: "Nevermind. Good bye !",
             fr: "Tant pis, au revoir !"
+        }
+    };
+    return {
+        setLang: function(language) {
+            lang = language;
+        },
+        get: function(key, language) {
+            if(!language) language = lang;
+            return texts[key][language];
         }
     };
 })();

@@ -31,7 +31,7 @@ if(ipAddress !== DEV_IP) {
     clapConfig.DETECTION_PERCENTAGE_START = '10%';
     clapConfig.DETECTION_PERCENTAGE_END = '10%';
 } else {
-    speakerConfig.AUDIO_DEVICE = 'default:CARD=PCH';
+    speakerConfig.AUDIO_DEVICE = 'plughw:1,0';
     clapConfig.DETECTION_PERCENTAGE_START = '20%';
     clapConfig.DETECTION_PERCENTAGE_END = '20%';
 }
@@ -66,7 +66,7 @@ clapDetector.start(clapConfig);
 clapDetector.onClaps(3, 2000, function(delay) {
     console.log("3 claps in ", delay, "ms");
 
-    eventSpeaker.speak(TRANS.YES).then(function() {
+    eventSpeaker.speak(TRANS.get('YES')).then(function() {
         clapDetector.pause();
         console.log("listen for order");
         orderListener.listen(function() {

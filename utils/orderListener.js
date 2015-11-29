@@ -65,7 +65,7 @@ var orderListener = (function() {
                 }
             },
             function error() {
-                eventSpeaker.speak(TRANS.REPEAT).then(function() {
+                eventSpeaker.speak(TRANS.get('REPEAT')).then(function() {
                     _listen();
                 })
             }
@@ -101,13 +101,13 @@ var orderListener = (function() {
             } else {
                 // This is a timeout
                 if(nb === CONFIG.LISTEN_MAX_TRIALS) {
-                    eventSpeaker.speak(TRANS.NEVERMIND).then(function() {
+                    eventSpeaker.speak(TRANS.get('NEVERMIND')).then(function() {
                         if(finishedCb) {
                             finishedCb();
                         }
                     });
                 } else {
-                    eventSpeaker.speak(TRANS.REPEAT_SHORT).then(function() {
+                    eventSpeaker.speak(TRANS.get('REPEAT_SHORT')).then(function() {
                         _listen(++nb);
                     });
                 }
