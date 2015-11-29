@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var Q = require('q');
 var ip = require('ip');
-var ai = require('./utils/ai.js');
 var clapDetector = require('clap-detector');
 var orderListener = require('./utils/orderListener.js');
 var eventSpeaker = require('./utils/eventSpeaker.js');

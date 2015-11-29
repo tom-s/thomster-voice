@@ -5,44 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98b8e098-25cc-455a-9ebf-f22bddeac4eb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils/eventSpeaker.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils/translations.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input11533.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input12968.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input16381.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input16517.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input19294.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input2329.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input27984.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input28323.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input29115.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input32321.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input36457.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input39397.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input40873.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input4211.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input43772.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input44278.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input44756.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input45389.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input4913.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input58811.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input62501.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input63131.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input65924.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input74285.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input78671.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input79312.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input84376.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input90371.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input90970.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input97449.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/input98055.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/output.wav" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/utils/server.js" afterPath="$PROJECT_DIR$/utils/ai.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wav/input33867.wav" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/utils/intentFinder.js" afterPath="$PROJECT_DIR$/utils/intentFinder.js.old" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/utils/wit.js" afterPath="$PROJECT_DIR$/utils/wit.js.old" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/ai.js" afterPath="$PROJECT_DIR$/utils/ai.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/eventSpeaker.js" afterPath="$PROJECT_DIR$/utils/eventSpeaker.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/orderListener.js" afterPath="$PROJECT_DIR$/utils/orderListener.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/translations.js" afterPath="$PROJECT_DIR$/utils/translations.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="thomster-voice.iws" />
@@ -67,38 +37,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.8644066">
-              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="eventSpeaker.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/eventSpeaker.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="translations.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/translations.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="intentFinder.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/intentFinder.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="5" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="30" />
+            <state vertical-scroll-proportion="11.288136">
+              <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -108,17 +48,17 @@
         <entry file="file://$PROJECT_DIR$/utils/ai.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+              <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="eventSpeaker.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/eventSpeaker.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.06101695">
-              <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -127,35 +67,35 @@
       <file leaf-file-name="orderListener.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/orderListener.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.4">
-              <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+            <state vertical-scroll-proportion="-1.8">
+              <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file leaf-file-name="intentFinder.js.old" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/utils/intentFinder.js.old">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.1851852">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.1220339">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cmdProcessor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/cmdProcessor.js">
+      <file leaf-file-name="translations.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/translations.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="1" column="38" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
+              <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wit.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/wit.js">
+      <file leaf-file-name="wit.js.old" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/wit.js.old">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
@@ -197,13 +137,13 @@
         <option value="$PROJECT_DIR$/todo.txt" />
         <option value="$PROJECT_DIR$/utils/server.js" />
         <option value="$PROJECT_DIR$/node_modules/clap-detector/index.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/utils/eventSpeaker.js" />
+        <option value="$PROJECT_DIR$/utils/translations.js" />
         <option value="$PROJECT_DIR$/utils/ai.js" />
         <option value="$PROJECT_DIR$/utils/orderListener.js" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/utils/translations.js" />
-        <option value="$PROJECT_DIR$/utils/eventSpeaker.js" />
-        <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -284,6 +224,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thomster-voice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thomster-voice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="clap-detector" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -401,14 +359,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/commands/movie.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="43" column="3" selection-start-line="43" selection-start-column="3" selection-end-line="43" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -674,26 +624,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/windowManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.059602648">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/pico-speaker/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="76" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/intentFinder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="5" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -716,14 +650,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/ai.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.1851852">
@@ -740,22 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/orderListener.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.4">
-          <caret line="24" column="25" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/wit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/cmdProcessor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -764,10 +674,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06101695">
+          <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/clap-detector/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.4">
+          <caret line="177" column="5" selection-start-line="163" selection-start-column="4" selection-end-line="177" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/utils/translations.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+          <caret line="16" column="38" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/wit.js.old">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/windowManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09152542">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/ai.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -775,23 +725,31 @@
     <entry file="file://$PROJECT_DIR$/utils/eventSpeaker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.8644066">
-          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        <state vertical-scroll-proportion="11.288136">
+          <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/utils/orderListener.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06101695">
-          <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+        <state vertical-scroll-proportion="-1.8">
+          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/intentFinder.js.old">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1220339">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
