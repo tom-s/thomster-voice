@@ -57,7 +57,7 @@ io.on('connection', function(socket){
         _listen();
     });
 
-    // Update event speaker
+    // Update event speaker and order listener
     eventSpeaker.setSocket(ioSocket);
     orderListener.setSocket(ioSocket);
 
