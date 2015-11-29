@@ -4,7 +4,9 @@
   "description": "",
   "main": "command.js",
   "dependencies": {
-    "clap-detector": "^0.1.0",
+    "apiai": "^1.0.3",
+    "clap-detector": "^0.3.1",
+    "glob": "^6.0.1",
     "glob-all": "^3.0.1",
     "ip": "^1.0.1",
     "lodash": "^3.10.1",

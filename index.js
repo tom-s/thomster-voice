@@ -1,9 +1,15 @@
 var _ = require('lodash');
 var Q = require('q');
 var ip = require('ip');
+var ai = require('./utils/ai.js');
 var clapDetector = require('clap-detector');
-var speaker = require('pico-speaker');
 var orderListener = require('./utils/orderListener.js');
+var eventSpeaker = require('./utils/eventSpeaker.js');
+
+// Include translations
+var TRANS = require('./utils/translations.js');
+
+// Start socket on port 8000
 var io = require('socket.io')(8000);
 var ioSocket = null;
 
@@ -41,10 +47,15 @@ io.on('connection', function(socket){
     socket.on('disconnect', function(){
         console.log('user disconnected');
     });
+
+    // Update event speaker
+    eventSpeaker.setSocket(socket);
+    orderListener.setSocket(socket);
+
 });
 
-/* Initialize speaker */
-speaker.init(speakerConfig);
+/* Initialize event Speaker  */
+eventSpeaker.init(speakerConfig);
 
 /* Initialize order listener */
 orderListener.init(orderConfig);
@@ -55,9 +66,8 @@ clapDetector.start(clapConfig);
 // Register to multiple claps
 clapDetector.onClaps(3, 2000, function(delay) {
     console.log("3 claps in ", delay, "ms");
-    ioSocket.emit('wakeUp');
-    speaker.speak('Yes ?').then(function() {
-        ioSocket.emit('listenForOrder');
+
+    eventSpeaker.speak(TRANS.YES).then(function() {
         clapDetector.pause();
         console.log("listen for order");
         orderListener.listen(function() {
@@ -71,3 +81,5 @@ clapDetector.onClaps(3, 2000, function(delay) {
  clapDetector.onClap(function() {
     console.log('a clap has been recorded ');
  }.bind(this));
+
+
