@@ -34,11 +34,9 @@ var orderListener = (function() {
                 var answer = _.get(res, 'fulfillment.speech');
                 if(answer) {
                     console.log("answer is", answer);
-                    eventSpeaker.speak(answer).then(function() {
-                        if(finishedCb) {
-                            finishedCb();
-                        }
-                    })
+                    eventSpeaker.speak(answer);
+                    if(finishedCb) finishedCb();
+
                 } else {
                     // This is a custom action, handle it accordingly
                     /*
@@ -101,11 +99,8 @@ var orderListener = (function() {
             } else {
                 // This is a timeout
                 if(nb === CONFIG.LISTEN_MAX_TRIALS) {
-                    eventSpeaker.speak(TRANS.get('NEVERMIND')).then(function() {
-                        if(finishedCb) {
-                            finishedCb();
-                        }
-                    });
+                    eventSpeaker.speak(TRANS.get('NEVERMIND'));
+                    if(finishedCb) finishedCb();
                 } else {
                     eventSpeaker.speak(TRANS.get('REPEAT_SHORT')).then(function() {
                         _listen(++nb);
