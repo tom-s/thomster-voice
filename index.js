@@ -10,7 +10,14 @@ var TRANS = require('./utils/translations.js');
 
 // Start socket on port 8000
 var io = require('socket.io')(8000);
-var ioSocket = null;
+var ioSocket = {
+    emit: function(event, data) {
+        console.log("no socket available");
+    },
+    on: function(event, cb) {
+        console.log("no socket available");
+    }
+};
 
 /* Config */
 var DEV_IP = '192.168.0.10';
@@ -37,8 +44,8 @@ if(ipAddress !== DEV_IP) {
     clapConfig.AUDIO_SOURCE = 'plughw:3,0'; // webcam
     orderConfig.AUDIO_SOURCE = 'plughw:3,0'; // webcam
     //clapConfig.NOISE_PROFILE = 'noise-rasp.prof';
-    clapConfig.DETECTION_PERCENTAGE_START = '20%';
-    clapConfig.DETECTION_PERCENTAGE_END = '20%';
+    clapConfig.DETECTION_PERCENTAGE_START = '10%';
+    clapConfig.DETECTION_PERCENTAGE_END = '10%';
 }
 
 
@@ -79,13 +86,15 @@ clapDetector.onClaps(3, 2000, function(delay) {
 }.bind(this));
 
 var _listen = function() {
+    clapDetector.pause();
     eventSpeaker.speak(TRANS.get('YES')).then(function() {
-        clapDetector.pause();
-        ioSocket.emit('listening');
+
+        //ioSocket.emit('listening');
         orderListener.listen(function() {
             ioSocket.emit('notListening');
             clapDetector.resume();
         });
+
     })
 }
 

@@ -4,6 +4,7 @@ var exec = require('child_process').exec;
 var eventSpeaker = require('./eventSpeaker.js');
 var cmdProcessor = require('./cmdProcessor.js');
 var ai = require('./ai.js');
+var appRoot = require('app-root-path');
 
 // Include translations
 var TRANS = require('./translations.js');
@@ -12,10 +13,10 @@ var orderListener = (function() {
     /* DEFAULT CONFIG */
     var CONFIG = {
         AUDIO_SOURCE: 'hw:1,0', // microphone
-        DETECTION_PERCENTAGE_START : '20%',
-        DETECTION_PERCENTAGE_END: '20%',
+        DETECTION_PERCENTAGE_START : '5%',
+        DETECTION_PERCENTAGE_END: '5%',
         CLEANING: {
-            PERFORM: false, // requires a noise profile
+            PERFORM: true, // requires a noise profile
             NOISE_PROFILE: 'noise.prof'
         },
         SOUND_FILE : "input.wav", // input file
@@ -26,8 +27,9 @@ var orderListener = (function() {
     var finishedCb = null;
     var socket = null;
 
-    function _analyze() {
-        ai.ask(CONFIG.SOUND_FILE_CLEAN).then(
+    function _analyze(filename) {
+        console.log('analyze', filename);
+        ai.ask(filename).then(
             function success(res) {
                 console.log("RES is", res);
 
@@ -73,10 +75,12 @@ var orderListener = (function() {
     function  _cleanFile(filename) {
         var deferred = Q.defer();
         if(CONFIG.CLEANING.PERFORM) {
+            var newFilename = filename.substr(0, filename.lastIndexOf(".")) + "clean.wav";
             // Clean noise
-            var cmd = 'sox ' + filename + ' ' + 'clean-' + filename + ' noisered ' + CONFIG.CLEANING.NOISE_PROFILE + ' 0.21';
+            var cmd = 'sox ' + filename + ' ' + newFilename + ' noisered ' + CONFIG.CLEANING.NOISE_PROFILE + ' 0.21';
             exec(cmd, function() {
-                deferred.resolve('clean-' + filename);
+                console.log('filename is', newFilename);
+                deferred.resolve(newFilename);
             });
         } else {
             // No cleaning to do
@@ -89,12 +93,14 @@ var orderListener = (function() {
     /* Listen for a command */
     function _listen(nb) {
         nb = (_.isUndefined(nb)) ? 1 : nb;
-        var cmd = 'timeout --signal=SIGINT 5 sox -t alsa ' + CONFIG.AUDIO_SOURCE + ' ' + CONFIG.SOUND_FILE + ' silence 1 0.1 ' + CONFIG.DETECTION_PERCENTAGE_START + ' 1 1.0 ' + CONFIG.DETECTION_PERCENTAGE_END;
+        var cmd = 'timeout --signal=SIGINT 5 sox -t alsa ' + CONFIG.AUDIO_SOURCE + ' ' + CONFIG.SOUND_FILE + ' silence -l 1 0.0001 ' + CONFIG.DETECTION_PERCENTAGE_START + ' 1 1.0 ' + CONFIG.DETECTION_PERCENTAGE_END;
+        var filename = appRoot + '/input.wav';
+
         var child = exec(cmd, function(err, stdout, sterr) {
             console.log("command finished", err, stdout, sterr);
             if(!err) {
-                _cleanFile().then(function() {
-                    _analyze();
+                _cleanFile(filename).then(function(filename) {
+                    _analyze(filename);
                 });
             } else {
                 // This is a timeout
@@ -121,6 +127,7 @@ var orderListener = (function() {
         },
 
         listen: function(cb) {
+            console.log("here");
             finishedCb = cb;
             _listen();
         },
@@ -132,3 +139,5 @@ var orderListener = (function() {
 })();
 
 module.exports = orderListener;
+
+console.log("required");

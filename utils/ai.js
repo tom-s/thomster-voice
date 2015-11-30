@@ -9,9 +9,10 @@ var Ai = (function() {
     return {
         ask: function(soundFile) {
             var deferred = Q.defer();
-            console.log("callling API ai");
+            console.log("callling API ai for", soundFile);
             var request = app.voiceRequest();
             request.on('response', function(response) {
+                console.log("response !", response);
                 if(!response.action || response.action === 'input.unknown') {
                     deferred.reject(response);
                 } else {
